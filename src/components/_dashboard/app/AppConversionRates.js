@@ -27,25 +27,25 @@ export default function AppConversionRates() {
     },
     xaxis: {
       categories: [
-        'Italy',
-        'Japan',
-        'China',
-        'Canada',
-        'France',
-        'Germany',
-        'South Korea',
-        'Netherlands',
-        'United States',
-        'United Kingdom'
+        'Project 1',
+        'Project 2',
+        'Project 3',
+        'Project 4',
+        'Project 5',
+        'Project 6',
+        'Project 7',
+        'Project 8',
+        'Project 9',
+        'Project 10'
       ]
     }
   });
 
   return (
     <Card>
-      <CardHeader title="Conversion Rates" subheader="(+43%) than last year" />
+      <CardHeader title="Issues reported per projects" subheader="(+43%) than last year" />
       <Box sx={{ mx: 3 }} dir="ltr">
-        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={364} />
+        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={400} />
       </Box>
     </Card>
   );

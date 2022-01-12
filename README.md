@@ -1,40 +1,42 @@
-## Minimal [(Free version)](https://minimal-kit-react.vercel.app/)
 
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
+## PROJECT NAME
+Issue Tracker
+## AUTHOR
+Aristote Katy & Charles Ndayisaba
 
-> Free React Admin Dashboard made with Material-UI components and React.
+## DESCRIPTION
+This is a React web application that can help Client raise issues of project to the developers.
 
-![preview](public/static/preview.png)
+## Technologies used
+Javascript
+React Js
+Html
+Css
 
-| [Minimal Free](https://minimal-kit-react.vercel.app/) | [Minimal](https://material-ui.com/store/items/minimal-dashboard/) |
-| ----------------------------------------------------- | :---------------------------------------------------------------- |
-| **7** Demo pages                                      | **42+** demo pages                                                |
-| -                                                     | ✓ Multi-language                                                  |
-| -                                                     | ✓ Dark/Light Mode 🌓                                              |
-| -                                                     | ✓ [More components](https://minimals.cc/components)               |
-| -                                                     | ✓ TypeScript version                                              |
-| -                                                     | ✓ Design files (Figma & Sketch)                                   |
+## Prerequisites
+To work with the website you need to have some few prerequisites.
 
-## Page demo
+Node js v16+
+npm v8+
+Create-react-app boilerplate installed
+Code/text editor
+Terminal
 
-- [Dashboard](https://minimal-kit-react.vercel.app/dashboard/app)
-- [Users](https://minimal-kit-react.vercel.app/dashboard/user)
-- [Product](https://minimal-kit-react.vercel.app/dashboard/products)
-- [Blog](https://minimal-kit-react.vercel.app/dashboard/blog)
-- [Login](https://minimal-kit-react.vercel.app/login)
-- [Register](https://minimal-kit-react.vercel.app/register)
-- [Not Found](https://minimal-kit-react.vercel.app/404)
+## Setup
+### Download the project on your local machine
+run `git clone https://github.com/totti1/Country-Travelled.git`
 
-## Getting started
+or download the zip file from github.
 
-- Recommended `node js 14+` and `npm 6+`
-- Install dependencies: `npm install` or `yarn install`
-- Start the server: `npm run start` or `yarn start`
+After extracting the files,
 
-## License
+### Navigate to the project folder
+run `cd Issue-Tracker`.
 
-Distributed under the MIT License. See [LICENSE](https://github.com/minimal-ui-kit/minimal.free/blob/main/LICENSE.md) for more information.
+### Installing the packages
+run `npm install` .
 
-## Contact us
+### Running the application
+run `npm start`
 
-Email Us: support@minimals.cc
+
