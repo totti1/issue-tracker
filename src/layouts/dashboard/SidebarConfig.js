@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import pieChart2Fill from '@iconify/icons-eva/pie-chart-2-fill';
 import peopleFill from '@iconify/icons-eva/people-fill';
-import shoppingBagFill from '@iconify/icons-eva/briefcase-outline';
+import shoppingBagFill from '@iconify/icons-eva/bulb-outline';
 import fileTextFill from '@iconify/icons-eva/file-text-fill';
 import lockFill from '@iconify/icons-eva/lock-fill';
 import personAddFill from '@iconify/icons-eva/person-add-fill';
@@ -23,7 +23,7 @@ const sidebarConfig = [
     icon: getIcon(fileTextFill)
   },
   {
-    title: 'Organisations',
+    title: 'Projects',
     path: '/dashboard/products',
     icon: getIcon(shoppingBagFill)
   },

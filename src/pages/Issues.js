@@ -5,9 +5,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/blog';
+import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/issues';
 //
-import POSTS from '../_mocks_/blog';
+import POSTS from '../_mocks_/issues';
 
 // ----------------------------------------------------------------------
 
@@ -25,16 +25,16 @@ export default function Blog() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Blog
+            Issues Reported
           </Typography>
-          <Button
+          {/* <Button
             variant="contained"
             component={RouterLink}
             to="#"
             startIcon={<Icon icon={plusFill} />}
           >
             New Post
-          </Button>
+          </Button> */}
         </Stack>
 
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">

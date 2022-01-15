@@ -1,7 +1,10 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 // material
-import { Container, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography, Button } from '@mui/material';
+import { Icon } from '@iconify/react';
+import { Link as RouterLink } from 'react-router-dom';
+import plusFill from '@iconify/icons-eva/plus-fill';
 // components
 import Page from '../components/Page';
 import {
@@ -9,7 +12,7 @@ import {
   ProductList,
   ProductCartWidget,
   ProductFilterSidebar
-} from '../components/_dashboard/products';
+} from '../components/_dashboard/projects';
 //
 import PRODUCTS from '../_mocks_/products';
 
@@ -49,10 +52,19 @@ export default function EcommerceShop() {
   return (
     <Page title="Dashboard: Products | Minimal-UI">
       <Container>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
-        </Typography>
-
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+          <Typography variant="h4" gutterBottom>
+            Highlighted Projects
+          </Typography>
+          <Button
+            variant="contained"
+            component={RouterLink}
+            to="#"
+            startIcon={<Icon icon={plusFill} />}
+          >
+            New Project
+          </Button>
+        </Stack>
         <Stack
           direction="row"
           flexWrap="wrap-reverse"
