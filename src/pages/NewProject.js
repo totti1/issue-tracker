@@ -2,9 +2,8 @@ import { Link as RouterLink } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 import { Box, Card, Link, Container, Typography } from '@mui/material';
-// layouts
-import AuthLayout from '../layouts/AuthLayout';
 // components
+import { ProjectForm } from '../components/_dashboard/projects';
 import Page from '../components/Page';
 import { MHidden } from '../components/@material-extend';
 import { RegisterForm } from '../components/authentication/register';
@@ -38,7 +37,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function Register() {
+export default function NewProject() {
   return (
     <RootStyle title="Register | Minimal-UI">
       {/* <AuthLayout>
@@ -61,7 +60,7 @@ export default function Register() {
         <ContentStyle>
           <Box sx={{ mb: 5 }}>
             <Typography variant="h4" gutterBottom>
-              Register New Client
+              Create New Project
             </Typography>
             {/* <Typography sx={{ color: 'text.secondary' }}>
               Free forever. No credit card needed.
@@ -70,7 +69,7 @@ export default function Register() {
 
           {/* <AuthSocial /> */}
 
-          <RegisterForm />
+          <ProjectForm />
 
           {/* <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
             By registering, I agree to Minimal&nbsp;

@@ -10,7 +10,7 @@ import Page from '../components/Page';
 import {
   ProductSort,
   ProductList,
-  ProductCartWidget,
+  // ProductCartWidget,
   ProductFilterSidebar
 } from '../components/_dashboard/projects';
 //
@@ -59,7 +59,7 @@ export default function EcommerceShop() {
           <Button
             variant="contained"
             component={RouterLink}
-            to="#"
+            to="/dashboard/new/project"
             startIcon={<Icon icon={plusFill} />}
           >
             New Project
@@ -85,7 +85,6 @@ export default function EcommerceShop() {
         </Stack>
 
         <ProductList products={PRODUCTS} />
-        <ProductCartWidget />
       </Container>
     </Page>
   );

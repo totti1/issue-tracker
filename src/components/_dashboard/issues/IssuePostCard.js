@@ -6,7 +6,17 @@ import shareFill from '@iconify/icons-eva/share-fill';
 import messageCircleFill from '@iconify/icons-eva/message-circle-fill';
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Link, Card, Grid, Avatar, Typography, CardContent } from '@mui/material';
+import {
+  Box,
+  Link,
+  Card,
+  Grid,
+  Avatar,
+  Typography,
+  CardContent,
+  Button,
+  CardActions
+} from '@mui/material';
 // utils
 import { fDate } from '../../../utils/formatTime';
 import { fShortenNumber } from '../../../utils/formatNumber';
@@ -74,7 +84,7 @@ export default function BlogPostCard({ post, index }) {
   return (
     <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
       <Card sx={{ position: 'relative' }}>
-        <CardMediaStyle
+        {/* <CardMediaStyle
           sx={{
             ...((latestPostLarge || latestPost) && {
               pt: 'calc(100% * 4 / 3)',
@@ -122,7 +132,7 @@ export default function BlogPostCard({ post, index }) {
           />
 
           <CoverImgStyle alt={title} src={cover} />
-        </CardMediaStyle>
+        </CardMediaStyle> */}
 
         <CardContent
           sx={{
@@ -157,8 +167,14 @@ export default function BlogPostCard({ post, index }) {
           >
             {title}
           </TitleStyle>
-
-          <InfoStyle>
+          <Typography variant="body2" color="text.secondary">
+            This impressive paella is a perfect party dish and a fun meal to cook together with your
+            guests.Add 1 cup of frozen peas along with the mussels, if you like.
+          </Typography>
+          <CardActions>
+            <Button size="small">More ...</Button>
+          </CardActions>
+          {/* <InfoStyle>
             {POST_INFO.map((info, index) => (
               <Box
                 key={index}
@@ -175,7 +191,7 @@ export default function BlogPostCard({ post, index }) {
                 <Typography variant="caption">{fShortenNumber(info.number)}</Typography>
               </Box>
             ))}
-          </InfoStyle>
+          </InfoStyle> */}
         </CardContent>
       </Card>
     </Grid>
