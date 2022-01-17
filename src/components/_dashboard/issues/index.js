@@ -1,3 +1,3 @@
-export { default as BlogPostCard } from './IssuePostCard';
-export { default as BlogPostsSearch } from './IssuePostsSearch';
-export { default as BlogPostsSort } from './IssuePostsSort';
+export { default as IssuePostCard } from './IssuePostCard';
+export { default as IssuePostsSearch } from './IssuePostsSearch';
+export { default as IssuePostsSort } from './IssuePostsSort';
