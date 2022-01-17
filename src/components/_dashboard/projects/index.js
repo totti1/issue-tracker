@@ -1,3 +1,4 @@
+export { default as BasicModal } from './addClientModal';
 export { default as ProductFilterSidebar } from './ProjectFilterSidebar';
 export { default as ProjectForm } from './ProjectForm';
 export { default as ProductCard } from './ProjectCard';
