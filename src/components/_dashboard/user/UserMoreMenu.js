@@ -6,10 +6,11 @@ import trash2Outline from '@iconify/icons-eva/trash-2-outline';
 import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
 // material
 import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
+import plusFill from '@iconify/icons-eva/plus-fill';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function UserMoreMenu(props) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -41,6 +42,17 @@ export default function UserMoreMenu() {
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
           <ListItemText primary="Edit" primaryTypographyProps={{ variant: 'body2' }} />
+        </MenuItem>
+        <MenuItem
+          component={RouterLink}
+          to="#"
+          sx={{ color: 'text.secondary' }}
+          onClick={props.onClick}
+        >
+          <ListItemIcon>
+            <Icon icon={plusFill} width={24} height={24} />
+          </ListItemIcon>
+          <ListItemText primary="Add Client" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
       </Menu>
     </>
