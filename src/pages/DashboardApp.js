@@ -28,7 +28,10 @@ const JIRA_KEY = process.env.REACT_APP_JIRA_KEY;
 export default function DashboardApp() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({});
   useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('user'));
+    setUser(data);
     getJiraProject();
   }, [0]);
   const getJiraProject = async () => {
@@ -54,10 +57,10 @@ export default function DashboardApp() {
     <Page title="Dashboard | Minimal-UI">
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
-          <Typography variant="h4">Hi, Welcome back</Typography>
+          <Typography variant="h4">Hi, {user.first_name}</Typography>
         </Box>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
+          {/* <Grid item xs={12} sm={6} md={3}>
             <AppWeeklySales />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
@@ -68,7 +71,7 @@ export default function DashboardApp() {
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppBugReports />
-          </Grid>
+          </Grid> */}
 
           {/* <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits />

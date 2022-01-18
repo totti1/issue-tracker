@@ -41,7 +41,6 @@ export default function Issues() {
     try {
       const response = await fetch(`${API}/issues`, requestOptions);
       const { data } = await response.json();
-      console.log(data);
       setIssues(data);
       setLoading(false);
     } catch (error) {
