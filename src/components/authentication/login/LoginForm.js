@@ -42,6 +42,7 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: async (e) => {
+      localStorage.clear();
       const info = {
         email: e.email,
         password: e.password
@@ -54,7 +55,6 @@ export default function LoginForm() {
             data: { status, data, message }
           } = response;
           if (status === 200) {
-            localStorage.clear();
             localStorage.setItem('user', JSON.stringify(data));
             localStorage.setItem('loggedin', true);
             navigate('/dashboard', { replace: true });

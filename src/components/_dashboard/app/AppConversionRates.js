@@ -9,9 +9,8 @@ import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [{ data: [4, 15] }];
-
-export default function AppConversionRates() {
+export default function AppConversionRates({ projects }) {
+  const CHART_DATA = [{ data: projects.map((i) => i.id * 2) }];
   const chartOptions = merge(BaseOptionChart(), {
     tooltip: {
       marker: { show: false },
@@ -23,10 +22,10 @@ export default function AppConversionRates() {
       }
     },
     plotOptions: {
-      bar: { horizontal: true, barHeight: '28%', borderRadius: 5 }
+      bar: { horizontal: true, barHeight: '28%', borderRadius: 2 }
     },
     xaxis: {
-      categories: ['Issue Tracker', 'Ping Pong']
+      categories: projects.map((i) => i.title)
     }
   });
 
@@ -38,7 +37,7 @@ export default function AppConversionRates() {
           type="bar"
           series={CHART_DATA}
           options={chartOptions}
-          height={chartOptions.xaxis.categories.length * 100}
+          height={projects.length * 100}
         />
       </Box>
     </Card>

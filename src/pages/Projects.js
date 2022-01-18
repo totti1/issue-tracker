@@ -148,7 +148,7 @@ export default function EcommerceShop() {
           <Button
             variant="contained"
             component={RouterLink}
-            to="/dashboard/register"
+            to="#"
             startIcon={<Icon icon={plusFill} />}
           >
             New Project

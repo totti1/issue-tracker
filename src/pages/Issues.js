@@ -21,21 +21,23 @@ const SORT_OPTIONS = [
 // ----------------------------------------------------------------------
 const API =
   process.env.NODE_ENV !== 'production'
-    ? process.env.REACT_APP_API_URL
+    ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
 export default function Issues() {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    getJiraProject();
+    const data = JSON.parse(localStorage.getItem('user'));
+    getJiraIssues(data.token);
   }, [0]);
-  const getJiraProject = async () => {
+  const getJiraIssues = async (Token) => {
     setLoading(true);
     const requestOptions = {
       method: 'GET',
       mode: 'cors',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
       }
     };
     try {
