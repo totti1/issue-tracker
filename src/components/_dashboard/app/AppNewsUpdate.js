@@ -29,9 +29,9 @@ NewsItem.propTypes = {
   news: PropTypes.object.isRequired
 };
 
-function NewsItem({ news }) {
-  const { image, title, description, postedAt } = news;
-
+function NewsItem({ project }) {
+  const { id, title, description } = project;
+  const image = mockImgCover(id);
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
       <Box
@@ -50,22 +50,19 @@ function NewsItem({ news }) {
           {description}
         </Typography>
       </Box>
-      <Typography variant="caption" sx={{ pr: 3, flexShrink: 0, color: 'text.secondary' }}>
-        {formatDistance(postedAt, new Date())}
-      </Typography>
     </Stack>
   );
 }
 
-export default function AppNewsUpdate() {
+export default function AppNewsUpdate({ projects }) {
   return (
     <Card>
       <CardHeader title="Most Highlighted Issues" />
 
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
-          {NEWS.map((news) => (
-            <NewsItem key={news.title} news={news} />
+          {projects.map((pro) => (
+            <NewsItem key={pro.title} project={pro} />
           ))}
         </Stack>
       </Scrollbar>

@@ -65,29 +65,22 @@ const CoverImgStyle = styled('img')({
 
 // ----------------------------------------------------------------------
 
-BlogPostCard.propTypes = {
-  post: PropTypes.object.isRequired,
+IssuePostCard.propTypes = {
+  issue: PropTypes.object.isRequired,
   index: PropTypes.number
 };
 
-export default function BlogPostCard({ post, index }) {
-  const { cover, title, view, comment, share, author, createdAt } = post;
-  const latestPostLarge = index === 0;
-  const latestPost = index === 1 || index === 2;
-
-  const POST_INFO = [
-    { number: comment, icon: messageCircleFill },
-    { number: view, icon: eyeFill },
-    { number: share, icon: shareFill }
-  ];
-
+export default function IssuePostCard({ issue, index }) {
+  const { id, title, description } = issue;
+  const latestIssueLarge = 0;
+  const latestIssue = 0;
   return (
-    <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
+    <Grid item xs={12} sm={latestIssueLarge ? 12 : 6} md={latestIssueLarge ? 6 : 3}>
       <Card sx={{ position: 'relative' }}>
         <CardContent
           sx={{
             pt: 4,
-            ...((latestPostLarge || latestPost) && {
+            ...((latestIssueLarge || latestIssue) && {
               bottom: 0,
               width: '100%',
               position: 'absolute'
@@ -99,7 +92,7 @@ export default function BlogPostCard({ post, index }) {
             variant="caption"
             sx={{ color: 'text.disabled', display: 'block' }}
           >
-            {fDate(createdAt)}
+            {fDate(new Date())}
           </Typography>
 
           <TitleStyle
@@ -109,8 +102,8 @@ export default function BlogPostCard({ post, index }) {
             underline="hover"
             component={RouterLink}
             sx={{
-              ...(latestPostLarge && { typography: 'h5', height: 60 }),
-              ...((latestPostLarge || latestPost) && {
+              ...(latestIssueLarge && { typography: 'h5', height: 60 }),
+              ...((latestIssueLarge || latestIssue) && {
                 color: 'common.white'
               })
             }}
@@ -118,11 +111,10 @@ export default function BlogPostCard({ post, index }) {
             {title}
           </TitleStyle>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests.Add 1 cup of frozen peas along with the mussels, if you like.
+            {description}
           </Typography>
           <CardActions>
-            <Button size="small">More ...</Button>
+            <Button size="small">send to Jira</Button>
           </CardActions>
         </CardContent>
       </Card>

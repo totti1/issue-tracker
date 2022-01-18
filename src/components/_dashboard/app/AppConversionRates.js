@@ -9,16 +9,15 @@ import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [{ data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380] }];
-
-export default function AppConversionRates() {
+export default function AppConversionRates({ projects }) {
+  const CHART_DATA = [{ data: projects.map((i) => i.id * 2) }];
   const chartOptions = merge(BaseOptionChart(), {
     tooltip: {
       marker: { show: false },
       y: {
         formatter: (seriesName) => fNumber(seriesName),
         title: {
-          formatter: (seriesName) => `#${seriesName}`
+          formatter: (seriesName) => `${seriesName}`
         }
       }
     },
@@ -26,26 +25,20 @@ export default function AppConversionRates() {
       bar: { horizontal: true, barHeight: '28%', borderRadius: 2 }
     },
     xaxis: {
-      categories: [
-        'Project 1',
-        'Project 2',
-        'Project 3',
-        'Project 4',
-        'Project 5',
-        'Project 6',
-        'Project 7',
-        'Project 8',
-        'Project 9',
-        'Project 10'
-      ]
+      categories: projects.map((i) => i.title)
     }
   });
 
   return (
     <Card>
-      <CardHeader title="Issues reported per projects" subheader="(+43%) than last year" />
+      <CardHeader title="Issues reported per project" subheader="last year" />
       <Box sx={{ mx: 3 }} dir="ltr">
-        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={400} />
+        <ReactApexChart
+          type="bar"
+          series={CHART_DATA}
+          options={chartOptions}
+          height={projects.length * 100}
+        />
       </Box>
     </Card>
   );
