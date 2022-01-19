@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
@@ -5,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/issues';
+import { IssuePostCard, IssuePostsSort, IssuePostsSearch } from '../components/_dashboard/issues';
 //
 import POSTS from '../_mocks_/issues';
 
@@ -18,34 +19,63 @@ const SORT_OPTIONS = [
 ];
 
 // ----------------------------------------------------------------------
-
-export default function Blog() {
+const API =
+  process.env.NODE_ENV !== 'production'
+    ? process.env.REACT_APP_API_DEV
+    : process.env.REACT_APP_API_URL;
+export default function Issues() {
+  const [issues, setIssues] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('user'));
+    getJiraIssues(data.token);
+  }, [0]);
+  const getJiraIssues = async (Token) => {
+    setLoading(true);
+    const requestOptions = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
+      }
+    };
+    try {
+      const response = await fetch(`${API}/issues`, requestOptions);
+      const { data } = await response.json();
+      setIssues(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <Page title="Dashboard: Blog | Minimal-UI">
+    <Page title="Dashboard: Issues | Minimal-UI">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
             Issues Reported
           </Typography>
-          {/* <Button
+          <Button
             variant="contained"
             component={RouterLink}
             to="#"
             startIcon={<Icon icon={plusFill} />}
           >
-            New Post
-          </Button> */}
+            New Issue
+          </Button>
         </Stack>
 
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-          <BlogPostsSearch posts={POSTS} />
-          <BlogPostsSort options={SORT_OPTIONS} />
+          <IssuePostsSearch posts={Issues} />
+          <IssuePostsSort options={SORT_OPTIONS} />
         </Stack>
 
         <Grid container spacing={3}>
-          {POSTS.map((post, index) => (
-            <BlogPostCard key={post.id} post={post} index={index} />
-          ))}
+          {!loading &&
+            issues.map((is, index) => (
+              <IssuePostCard key={is.id} issue={is} post={is} index={index} />
+            ))}
         </Grid>
       </Container>
     </Page>

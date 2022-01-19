@@ -1,4 +1,6 @@
 import { Navigate, useRoutes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
@@ -16,12 +18,23 @@ import Home from './pages/home';
 // ----------------------------------------------------------------------
 
 export default function Router() {
+  const [logged, setLogged] = useState(false);
+  useEffect(() => {
+    const checked = localStorage.getItem('loggedin');
+    setLogged(checked);
+  }, []);
   return useRoutes([
     {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" replace /> },
+        {
+          element: logged ? (
+            <Navigate to="/dashboard/app" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        },
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'products', element: <Products /> },
