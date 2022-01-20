@@ -4,7 +4,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
-// import axios from 'axios';
+import axios from 'axios';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 // material
 import {
@@ -18,8 +18,6 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
-// ----------------------------------------------------------------------
-const axios = require('axios');
 
 const API =
   process.env.NODE_ENV !== 'production'

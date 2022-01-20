@@ -1,4 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import axios from 'axios';
+import { useParams } from 'react-router';
 // material
 import { styled } from '@mui/material/styles';
 import { Box, Card, Link, Container, Typography } from '@mui/material';
@@ -38,7 +41,17 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function Register() {
+const Register = () => {
+  const [data, setdata] = useState(null)
+
+  const { id } = useParams();
+  useEffect(() => {
+    checkUser()
+  }, [0])
+
+  const checkUser = () => {
+
+  }
   return (
     <RootStyle title="Register | Minimal-UI">
       {/* <AuthLayout>
@@ -97,3 +110,4 @@ export default function Register() {
     </RootStyle>
   );
 }
+export default Register
