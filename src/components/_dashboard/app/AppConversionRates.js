@@ -25,7 +25,7 @@ export default function AppConversionRates({ projects }) {
       bar: { horizontal: true, barHeight: '28%', borderRadius: 2 }
     },
     xaxis: {
-      categories: projects.map((i) => i.title)
+      categories: projects.map((i) => i.name)
     }
   });
 
