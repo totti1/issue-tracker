@@ -9,6 +9,7 @@ import Page from '../components/Page';
 import { IssuePostCard, IssuePostsSort, IssuePostsSearch } from '../components/_dashboard/issues';
 //
 import POSTS from '../_mocks_/issues';
+import { HomeSideMenu } from '../components/home';
 
 // ----------------------------------------------------------------------
 
@@ -54,7 +55,7 @@ export default function Issues() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Issues Reported
+            Issues reported for Project 1
           </Typography>
           <Button
             variant="contained"
@@ -72,10 +73,17 @@ export default function Issues() {
         </Stack>
 
         <Grid container spacing={3}>
-          {!loading &&
-            issues.map((is, index) => (
-              <IssuePostCard key={is.id} issue={is} post={is} index={index} />
-            ))}
+          <Grid item xs={8}>
+            {!loading &&
+              issues.map((is, index) => (
+                <Grid item xs={12} sx={{ marginBottom: 2 }}>
+                  <IssuePostCard key={is.id} issue={is} post={is} index={index} />
+                </Grid>
+              ))}
+          </Grid>
+          <Grid item xs={4}>
+            <HomeSideMenu />
+          </Grid>
         </Grid>
       </Container>
     </Page>
