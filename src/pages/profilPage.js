@@ -6,36 +6,34 @@ import { BasicModal } from '../components/_dashboard/projects';
 // components
 import { HomeNavbar, HomeSideMenu, UserProfileSide, IssueCard } from '../components/home';
 import POSTS from '../_mocks_/issues';
+import { IssuePostCard } from 'src/components/_dashboard/issues';
+
 
 // ----------------------------------------------------------------------
 
-export default function Home() {
+export default function ProfilPage() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <HomeNavbar />
-      <Container maxWidth="xl" sx={{ marginTop: '2%' }}>
-        <Grid container spacing={2} sx={{ pb: 5 }}>
-          <Grid item xs={3}>
-            <HomeSideMenu />
-          </Grid>
-          <Grid item xs={6}>
-            {/* <Typography variant="h4">Hi, Welcome back</Typography> */}
-            {POSTS.map((post, index) => (
-              <IssueCard
-                issueTitle={post.title}
-                issueDescription={post.title}
-                issueDateCreated="September 14, 2016"
-              />
-            ))}
-          </Grid>
-          <Grid item xs={3}>
-            <UserProfileSide />
-          </Grid>
+      {/* <HomeNavbar /> */}
+      {/* <Container maxWidth="xl" sx={{ marginTop: '2%' }}> */}
+      <Grid container spacing={2} sx={{ pb: 5 }}>
+        <Grid item xs={3}>
+          <HomeSideMenu />
         </Grid>
-      </Container>
+        <Grid item xs={6} sx={{ marginBottom: 20 }}>
+          {/* <Typography variant="h4">Hi, Welcome back</Typography> */}
+          {POSTS.map((post, index) => (
+            <IssuePostCard key={post.id} issue={post} post={post} index={index} />
+          ))}
+        </Grid>
+        <Grid item xs={3}>
+          <UserProfileSide />
+        </Grid>
+      </Grid>
+      {/* </Container> */}
       <BasicModal open={open} onClose={handleClose}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Report a New Issue
@@ -45,9 +43,6 @@ export default function Home() {
           type="text"
           label="Title"
           sx={{ marginTop: 2, marginBottom: 2 }}
-          // {...getFieldProps('email')}
-          // error={Boolean(touched.email && errors.email)}
-          // helperText={touched.email && errors.email}
         />
         <TextField
           fullWidth
