@@ -1,28 +1,28 @@
 import PropTypes from 'prop-types';
 // material
 import { visuallyHidden } from '@mui/utils';
-import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
+import { Box, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 UserListHead.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']),
   orderBy: PropTypes.string,
-  rowCount: PropTypes.number,
+  // rowCount: PropTypes.number,
   headLabel: PropTypes.array,
-  numSelected: PropTypes.number,
-  onRequestSort: PropTypes.func,
-  onSelectAllClick: PropTypes.func
+  // numSelected: PropTypes.number,
+  onRequestSort: PropTypes.func
+  // onSelectAllClick: PropTypes.func
 };
 
 export default function UserListHead({
   order,
   orderBy,
-  rowCount,
+  // rowCount,
   headLabel,
-  numSelected,
-  onRequestSort,
-  onSelectAllClick
+  // numSelected,
+  onRequestSort
+  // onSelectAllClick
 }) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);

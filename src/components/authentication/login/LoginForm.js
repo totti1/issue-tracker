@@ -4,7 +4,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
-import axios from 'axios';
+// import axios from 'axios';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 // material
 import {
@@ -19,6 +19,8 @@ import {
 import { LoadingButton } from '@mui/lab';
 
 // ----------------------------------------------------------------------
+const axios = require('axios');
+
 const API =
   process.env.NODE_ENV !== 'production'
     ? process.env.REACT_APP_API_DEV
@@ -27,7 +29,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [Error, setError] = useState('');
+  // const [Error, setError] = useState('');
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
