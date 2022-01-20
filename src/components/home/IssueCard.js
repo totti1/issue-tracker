@@ -14,7 +14,7 @@ export default function IssueCard(props) {
         </Typography>
       </CardContent>
       <CardActions sx={{ marginLeft: '2.5%' }}>
-        <Button size="small" to={props.redirectTo} component={RouterLink}>
+        <Button size="small">
           Check Issues
         </Button>
         <Button size="small" onClick={props.onClick}>
