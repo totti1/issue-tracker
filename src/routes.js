@@ -13,7 +13,7 @@ import Issues from './pages/Issues';
 import User from './pages/User';
 import NotFound from './pages/Page404';
 import NewProject from './pages/NewProject';
-import Home from './pages/home';
+import ProfilPage from './pages/profilPage';
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +39,7 @@ export default function Router() {
         { path: 'user', element: <User /> },
         { path: 'projects', element: <Projects /> },
         { path: 'issues', element: <Issues /> },
+        { path: 'profile', element: <ProfilPage /> },
         { path: 'new/project', element: <NewProject /> }
       ]
     },
@@ -49,8 +50,7 @@ export default function Router() {
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
         { path: '404', element: <NotFound /> },
-        { path: 'dashboard', element: <Navigate to="/dashboard" /> },
-        { path: '/', element: <Home /> },
+        { path: '/', element: <Navigate to="/dashboard" /> },
         { path: '*', element: <Navigate to="/404" /> }
       ]
     },
