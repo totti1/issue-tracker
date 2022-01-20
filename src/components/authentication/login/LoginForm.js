@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
@@ -33,7 +33,12 @@ export default function LoginForm() {
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required')
   });
-
+  useEffect(() => {
+    const check = localStorage.getItem('loggedin')
+    if (check) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [])
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -42,7 +47,6 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: async (e) => {
-      localStorage.clear();
       const info = {
         email: e.email,
         password: e.password
