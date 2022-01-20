@@ -1,7 +1,7 @@
-import faker from 'faker';
+// import faker from 'faker';
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
-import { formatDistance } from 'date-fns';
+// import { formatDistance } from 'date-fns';
 import { Link as RouterLink } from 'react-router-dom';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 // material
@@ -13,15 +13,15 @@ import Scrollbar from '../../Scrollbar';
 
 // ----------------------------------------------------------------------
 
-const NEWS = [...Array(5)].map((_, index) => {
-  const setIndex = index + 1;
-  return {
-    title: faker.name.title(),
-    description: faker.lorem.paragraphs(),
-    image: mockImgCover(setIndex),
-    postedAt: faker.date.soon()
-  };
-});
+// const NEWS = [...Array(5)].map((_, index) => {
+//   const setIndex = index + 1;
+//   return {
+//     title: faker.name.title(),
+//     description: faker.lorem.paragraphs(),
+//     image: mockImgCover(setIndex),
+//     postedAt: faker.date.soon()
+//   };
+// });
 
 // ----------------------------------------------------------------------
 

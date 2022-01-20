@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import { fCurrency } from '../../../utils/formatNumber';
 //
 import Label from '../../Label';
-import ColorPreview from '../../ColorPreview';
+// import ColorPreview from '../../ColorPreview';
 
 // ----------------------------------------------------------------------
 

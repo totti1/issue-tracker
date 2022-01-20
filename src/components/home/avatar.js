@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
+import { Avatar, Stack } from '@mui/material';
+import account from '../../_mocks_/account';
 
 export default function ImageAvatars() {
   return (
     <Stack direction="row" sx={{ marginTop: 2 }}>
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 75, height: 75 }} />
+      <Avatar alt="Remy Sharp" src={account.photoURL} sx={{ width: 75, height: 75 }} />
     </Stack>
   );
 }

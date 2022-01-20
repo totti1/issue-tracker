@@ -17,14 +17,14 @@ const sidebarConfig = [
     path: '/dashboard/app',
     icon: getIcon(pieChart2Fill)
   },
-  {
-    title: 'issues',
-    path: '/dashboard/blog',
-    icon: getIcon(fileTextFill)
-  },
+  // {
+  //   title: 'issues',
+  //   path: '/dashboard/blog',
+  //   icon: getIcon(fileTextFill)
+  // },
   {
     title: 'Projects',
-    path: '/dashboard/products',
+    path: '/dashboard/projects',
     icon: getIcon(shoppingBagFill)
   },
   {

@@ -4,7 +4,7 @@ import { Box, Grid, Container, Typography, Button, TextField } from '@mui/materi
 import { LoadingButton } from '@mui/lab';
 import { BasicModal } from '../components/_dashboard/projects';
 // components
-import { HomeNavbar, HomeSideMenu, UserProfileSide, HomeIssueCard } from '../components/home';
+import { HomeNavbar, HomeSideMenu, UserProfileSide, IssueCard } from '../components/home';
 import POSTS from '../_mocks_/issues';
 
 // ----------------------------------------------------------------------
@@ -22,16 +22,9 @@ export default function Home() {
             <HomeSideMenu />
           </Grid>
           <Grid item xs={6}>
-            <Button
-              variant="outlined"
-              sx={{ width: '100%', borderRadius: 1.2, border: 1.2, marginBottom: 2, elevation: 9 }}
-              onClick={handleOpen}
-            >
-              Add New Issue
-            </Button>
             {/* <Typography variant="h4">Hi, Welcome back</Typography> */}
             {POSTS.map((post, index) => (
-              <HomeIssueCard
+              <IssueCard
                 issueTitle={post.title}
                 issueDescription={post.title}
                 issueDateCreated="September 14, 2016"
@@ -45,7 +38,7 @@ export default function Home() {
       </Container>
       <BasicModal open={open} onClose={handleClose}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          New Issue
+          Report a New Issue
         </Typography>
         <TextField
           fullWidth
@@ -71,9 +64,23 @@ export default function Home() {
           variant="contained"
           // loading={isSubmitting}
         >
-          Add Issue
+          Report
         </LoadingButton>
       </BasicModal>
+      <Button
+        variant="outlined"
+        sx={{
+          width: '100%',
+          borderRadius: 1.2,
+          border: 1.2,
+          position: 'sticky',
+          bottom: 16,
+          right: 16
+        }}
+        onClick={handleOpen}
+      >
+        Report a New Issue
+      </Button>
     </div>
   );
 }
