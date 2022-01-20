@@ -69,7 +69,6 @@ export default function DashboardApp() {
     try {
       const response = await fetch(`${API}/projects`, requestOptions);
       const { data } = await response.json();
-      console.log(data);
       setProjects(data);
       setPLoading(false);
     } catch (error) {
@@ -81,7 +80,7 @@ export default function DashboardApp() {
     <Page title="Dashboard | Minimal-UI">
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
-          <Typography variant="h4">Hi, {user.first_name}</Typography>
+          <Typography variant="h4">Hi, {user.first_name} Welcome Back</Typography>
         </Box>
         <Grid container spacing={3}>
           {/* <Grid item xs={12} sm={6} md={3}>

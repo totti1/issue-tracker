@@ -51,33 +51,36 @@ export default function Issues() {
   };
   return (
     <Page title="Dashboard: Issues | Minimal-UI">
-      <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
-            Issues Reported
-          </Typography>
-          <Button
-            variant="contained"
-            component={RouterLink}
-            to="#"
-            startIcon={<Icon icon={plusFill} />}
-          >
-            New Issue
-          </Button>
-        </Stack>
+      {!loading && !issues ? (
+        <Container>
+          <Grid container spacing={3}>
+            <Typography variant="h4" gutterBottom>
+              No Issues reported yet
+            </Typography>
+          </Grid>
+        </Container>
+      ) : (
+        <Container>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+            <Typography variant="h4" gutterBottom>
+              Issues Reported
+            </Typography>
+          </Stack>
 
-        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-          <IssuePostsSearch posts={Issues} />
-          <IssuePostsSort options={SORT_OPTIONS} />
-        </Stack>
+          <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+            <IssuePostsSearch posts={Issues} />
+            <IssuePostsSort options={SORT_OPTIONS} />
+          </Stack>
 
-        <Grid container spacing={3}>
-          {!loading &&
-            issues.map((is, index) => (
-              <IssuePostCard key={is.id} issue={is} post={is} index={index} />
-            ))}
-        </Grid>
-      </Container>
+          <Grid container spacing={3}>
+            {!loading &&
+              issues &&
+              issues.map((is, index) => (
+                <IssuePostCard key={is.id} issue={is} post={is} index={index} />
+              ))}
+          </Grid>
+        </Container>
+      )}
     </Page>
   );
 }

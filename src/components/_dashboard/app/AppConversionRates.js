@@ -10,7 +10,7 @@ import { BaseOptionChart } from '../../charts';
 // ----------------------------------------------------------------------
 
 export default function AppConversionRates({ projects }) {
-  const CHART_DATA = [{ data: projects.map((i) => i.id * 2) }];
+  const CHART_DATA = [{ data: projects.map((i) => i.id - 10000) }];
   const chartOptions = merge(BaseOptionChart(), {
     tooltip: {
       marker: { show: false },
@@ -25,7 +25,7 @@ export default function AppConversionRates({ projects }) {
       bar: { horizontal: true, barHeight: '28%', borderRadius: 2 }
     },
     xaxis: {
-      categories: projects.map((i) => i.title)
+      categories: projects.map((i) => i.name)
     }
   });
 
