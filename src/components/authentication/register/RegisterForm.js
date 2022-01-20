@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import axios from 'axios';
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useFormik, Form, FormikProvider } from 'formik';
@@ -10,32 +11,67 @@ import { Stack, TextField, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 // ----------------------------------------------------------------------
-
-export default function RegisterForm() {
+const API =
+  process.env.NODE_ENV !== 'production'
+    ? process.env.REACT_APP_API_DEV
+    : process.env.REACT_APP_API_URL;
+const RegisterForm = ({ email, token }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const RegisterSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
       .required('First name required'),
     lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
+    phone: Yup.string().min(10, 'Too Short!').max(15, 'Too Long!').required('Phone number is required'),
+    password: Yup.string().required('Password is required'),
+    address: Yup.string().required('Address is required'),
+
   });
 
   const formik = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
-      email: '',
+      phone: '',
+      email,
+      address: '',
       password: ''
     },
     validationSchema: RegisterSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+    onSubmit: async (e) => {
+      console.log(e, email, token)
+      const info = {
+        first_name: e.firstName,
+        last_name: e.lastName,
+        phoneNumber: e.phone,
+        address: e.address,
+        password: e.password
+      };
+      setLoading(true);
+      axios
+        .post(`${API}/auth/signup/${token}`, info)
+        .then((response) => {
+
+          const data = response;
+          if (data.status === 200) {
+            let info = data.data
+            localStorage.setItem('user', JSON.stringify(data));
+            localStorage.setItem('loggedin', true);
+            navigate('/dashboard', { replace: true });
+          } else {
+            alert('Something went wrong. Reflesh');
+          }
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          alert('Something went wrong. Reflesh');
+        });
     }
+
   });
 
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
@@ -64,20 +100,22 @@ export default function RegisterForm() {
 
           <TextField
             fullWidth
-            autoComplete="username"
+            disabled={true}
+            autoComplete="email"
             type="email"
             label="Email address"
             {...getFieldProps('email')}
             error={Boolean(touched.email && errors.email)}
             helperText={touched.email && errors.email}
+            value={email}
           />
           <TextField
             fullWidth
-            label="Organisation"
-            {...getFieldProps('organisation')}
-            error={Boolean(touched.organisation && errors.organisation)}
-            helperText={touched.organisation && errors.organisation}
-            defaultValue="My Organisation"
+            label="Phone"
+            type="text"
+            {...getFieldProps('phone')}
+            error={Boolean(touched.phone && errors.phone)}
+            helperText={touched.phone && errors.phone}
           />
 
           <TextField
@@ -98,13 +136,22 @@ export default function RegisterForm() {
             error={Boolean(touched.password && errors.password)}
             helperText={touched.password && errors.password}
           />
+          <TextField
+            fullWidth
+            label="Address"
+            type="text"
+            {...getFieldProps('address')}
+            error={Boolean(touched.address && errors.address)}
+            helperText={touched.address && errors.address}
+            defaultValue="Kigali, Rwanda"
+          />
 
           <LoadingButton
             fullWidth
             size="large"
             type="submit"
             variant="contained"
-            loading={isSubmitting}
+            loading={loading}
           >
             Register
           </LoadingButton>
@@ -113,3 +160,4 @@ export default function RegisterForm() {
     </FormikProvider>
   );
 }
+export default RegisterForm

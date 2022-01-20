@@ -55,20 +55,20 @@ export default function LoginForm() {
       axios
         .post(`${API}/auth/signin/`, info)
         .then((response) => {
-          const {
-            data: { status, data, message }
-          } = response;
-          if (status === 200) {
+          const data = response;
+          if (data.status === 200) {
+            let info = data.data
             localStorage.setItem('user', JSON.stringify(data));
             localStorage.setItem('loggedin', true);
             navigate('/dashboard', { replace: true });
           } else {
             alert('Email or Password mismatch');
           }
-          setLoading(false);
+
         })
         .catch((error) => {
-          console.log(error);
+          setLoading(false);
+          alert('Email or Password mismatch');
         });
     }
   });
@@ -129,7 +129,7 @@ export default function LoginForm() {
           size="large"
           type="submit"
           variant="contained"
-          loading={isSubmitting}
+          loading={loading}
         >
           Login
         </LoadingButton>
