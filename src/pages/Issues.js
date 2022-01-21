@@ -30,15 +30,14 @@ export default function Issues() {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('user'));
+    const { data } = JSON.parse(localStorage.getItem('user'));
     const Is = JSON.parse(localStorage.getItem('issues'));
     if (Is) {
       const issue = Is.filter(i => i.projectid == id)
-      console.log(issue)
       setIssues(issue)
       setLoading(false)
     }
-    // getAllIssues(data.token);
+    getAllIssues(data.token);
   }, [0]);
   const getAllIssues = async (Token) => {
     const requestOptions = {
