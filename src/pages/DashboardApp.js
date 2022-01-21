@@ -5,11 +5,11 @@ import { Box, Grid, Container, Typography } from '@mui/material';
 import Page from '../components/Page';
 import {
   // AppTasks,
-  AppNewUsers,
-  AppBugReports,
-  AppItemOrders,
+  // AppNewUsers,
+  // AppBugReports,
+  // AppItemOrders,
   AppNewsUpdate,
-  AppWeeklySales,
+  // AppWeeklySales,
   // AppOrderTimeline,
   // AppCurrentVisits,
   // AppWebsiteVisits,
