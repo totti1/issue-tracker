@@ -11,7 +11,7 @@ import { LoadingButton } from '@mui/lab';
 
 // ----------------------------------------------------------------------
 
-export default function ProjectForm() {
+export default function IssueForm() {
   const navigate = useNavigate();
   // const [showPassword, setShowPassword] = useState(false);
 
@@ -46,10 +46,7 @@ export default function ProjectForm() {
         <Stack spacing={3}>
           <TextField
             fullWidth
-            label="Project name"
-            {...getFieldProps('firstName')}
-            error={Boolean(touched.firstName && errors.firstName)}
-            helperText={touched.firstName && errors.firstName}
+            label="Title"
           />
 
           <TextField
@@ -59,22 +56,11 @@ export default function ProjectForm() {
             rows={4}
             // defaultValue="Default Value"
           />
-
-          {/* <TextField
-            fullWidth
-            type="email"
-            label="Email address"
-            {...getFieldProps('email')}
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
-          /> */}
           <TextField
             fullWidth
-            label="Organisation"
-            {...getFieldProps('organisation')}
-            error={Boolean(touched.organisation && errors.organisation)}
-            helperText={touched.organisation && errors.organisation}
-            defaultValue="My Organisation"
+            disabled
+            label="Project"
+            defaultValue="Project Name"
           />
           <LoadingButton
             fullWidth
@@ -83,7 +69,7 @@ export default function ProjectForm() {
             variant="contained"
             loading={isSubmitting}
           >
-            Add Project
+            Report New Issue
           </LoadingButton>
         </Stack>
       </Form>

@@ -12,7 +12,7 @@ import Projects from './pages/Projects';
 import Issues from './pages/Issues';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-import NewProject from './pages/NewProject';
+import NewIssue from './pages/NewIssue';
 import ProfilPage from './pages/profilPage';
 
 // ----------------------------------------------------------------------
@@ -40,7 +40,7 @@ const Router = () => {
         { path: 'projects', element: <Projects /> },
         { path: 'issues/:id', element: <Issues /> },
         { path: 'profile', element: <ProfilPage /> },
-        { path: 'new/project', element: <NewProject /> }
+        { path: 'new/issue', element: <NewIssue /> }
       ]
     },
     {

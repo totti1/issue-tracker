@@ -33,7 +33,9 @@ export default function Projects() {
     setOpen(true)
   };
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false)
+  };
   const sendInvite = async () => {
     const URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : window.location.hostname
     const userData = localStorage.getItem('user')
@@ -89,8 +91,9 @@ export default function Projects() {
                 projectKey={items.key}
                 projectID={items.id}
                 projectLead={items.lead.displayName}
-                onClick={() => handleOpen(items.id)}
-                redirectTo={`/dashboard/issues/${items.id}`}
+                onClickInviteClient={() => handleOpen(items.id)}
+                redirectToIssues={`/dashboard/issues/${items.id}`}
+                redirectToNewIssue="/dashboard/new/issue/"
               />
             </Grid>
           ))}
