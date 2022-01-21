@@ -1,43 +1,71 @@
 import * as Yup from 'yup';
-// import { useState } from 'react';
-// import { Icon } from '@iconify/react';
+import { useParams } from 'react-router';
 import { useFormik, Form, FormikProvider } from 'formik';
-// import eyeFill from '@iconify/icons-eva/eye-fill';
-// import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { useNavigate } from 'react-router-dom';
 // material
 import { Stack, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 // ----------------------------------------------------------------------
-
+const API =
+  process.env.NODE_ENV !== 'production'
+    ? process.env.REACT_APP_API_DEV
+    : process.env.REACT_APP_API_URL;
 export default function IssueForm() {
   const navigate = useNavigate();
-  // const [showPassword, setShowPassword] = useState(false);
+  const { projectID } = useParams();
 
-  const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string()
+  const IssueSchema = Yup.object().shape({
+    title: Yup.string()
       .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('First name required'),
-    lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
+      .max(20, 'Too Long!')
+      .required('Title required'),
+    description: Yup.string().min(2, 'Too Short!').max(250, 'Too Long!').required('Description required'),
   });
 
   const formik = useFormik({
     initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: ''
+      title: '',
+      description: ''
     },
-    validationSchema: RegisterSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+    validationSchema: IssueSchema,
+    onSubmit: async (e) => {
+      const userData = localStorage.getItem('user')
+      if (!userData) {
+        return false
+      }
+      const { data } = JSON.parse(userData);
+      let info = {
+        title: e.title,
+        description: e.description,
+        projectID
+      }
+      const requestOptions = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${data.token}`,
+        },
+        body: JSON.stringify(info)
+      };
+      try {
+        const response = await fetch(`${API}/issue`, requestOptions);
+        const data = await response.json();
+        console.log(data)
+        if (data.status === 201 || data.status === 202) {
+          alert('Issue reported successful');
+          navigate('/dashboard/projects', { replace: true });
+        } else {
+          alert('Internal server error');
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+
     }
   });
-
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 
   return (
@@ -46,7 +74,12 @@ export default function IssueForm() {
         <Stack spacing={3}>
           <TextField
             fullWidth
-            label="Title"
+            autoComplete="title"
+            type="text"
+            label="Issue name"
+            {...getFieldProps('title')}
+            error={Boolean(touched.title && errors.title)}
+            helperText={touched.title && errors.title}
           />
 
           <TextField
@@ -54,13 +87,11 @@ export default function IssueForm() {
             label="Description"
             multiline
             rows={4}
-            // defaultValue="Default Value"
-          />
-          <TextField
             fullWidth
-            disabled
-            label="Project"
-            defaultValue="Project Name"
+            type="text"
+            {...getFieldProps('description')}
+            error={Boolean(touched.description && errors.description)}
+            helperText={touched.description && errors.description}
           />
           <LoadingButton
             fullWidth

@@ -82,7 +82,7 @@ export default function Issues() {
           <Button
             variant='contained'
             component={RouterLink}
-            to='#'
+            to={`/dashboard/new/issue/${id}`}
             startIcon={<Icon icon={plusFill} />}
           >
             New Issue

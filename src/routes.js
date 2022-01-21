@@ -22,7 +22,7 @@ const Router = () => {
   useEffect(() => {
     const checked = localStorage.getItem('loggedin');
     setLogged(checked);
-  }, [0]);
+  }, []);
   return useRoutes([
     {
       path: '/dashboard',
@@ -40,7 +40,7 @@ const Router = () => {
         { path: 'projects', element: <Projects /> },
         { path: 'issues/:id', element: <Issues /> },
         { path: 'profile', element: <ProfilPage /> },
-        { path: 'new/issue', element: <NewIssue /> }
+        { path: 'new/issue/:projectID', element: <NewIssue /> }
       ]
     },
     {
