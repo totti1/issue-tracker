@@ -35,7 +35,6 @@ export default function DashboardApp() {
     const { data } = JSON.parse(localStorage.getItem('user'));
     const Pr = JSON.parse(localStorage.getItem('projects'));
     const Is = JSON.parse(localStorage.getItem('issues'));
-    console.log(data)
     if (data) {
       setUser(data);
     }

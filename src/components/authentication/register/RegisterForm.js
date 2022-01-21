@@ -42,7 +42,6 @@ const RegisterForm = ({ email, token }) => {
     },
     validationSchema: RegisterSchema,
     onSubmit: async (e) => {
-      console.log(e, email, token)
       const info = {
         first_name: e.firstName,
         last_name: e.lastName,

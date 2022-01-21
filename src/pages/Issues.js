@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import plusFill from '@iconify/icons-eva/plus-fill';
+import { useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
@@ -25,14 +26,21 @@ const API =
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
 export default function Issues() {
+  const { id } = useParams();
   const [issues, setIssues] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('user'));
-    getJiraIssues(data.token);
+    const Is = JSON.parse(localStorage.getItem('issues'));
+    if (Is) {
+      const issue = Is.filter(i => i.projectid == id)
+      console.log(issue)
+      setIssues(issue)
+      setLoading(false)
+    }
+    // getAllIssues(data.token);
   }, [0]);
-  const getJiraIssues = async (Token) => {
-    setLoading(true);
+  const getAllIssues = async (Token) => {
     const requestOptions = {
       method: 'GET',
       mode: 'cors',
@@ -44,7 +52,9 @@ export default function Issues() {
     try {
       const response = await fetch(`${API}/issues`, requestOptions);
       const { data } = await response.json();
-      setIssues(data);
+      const issue = data.filter(i => i.projectid == id)
+      setIssues(issue);
+      localStorage.setItem('issues', data)
       setLoading(false);
     } catch (error) {
       console.log(error);
