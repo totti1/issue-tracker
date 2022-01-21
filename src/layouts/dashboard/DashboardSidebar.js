@@ -44,7 +44,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('user'));
+    const { data } = JSON.parse(localStorage.getItem('user'));
     setUser(data);
     if (isOpenSidebar) {
       onCloseSidebar();

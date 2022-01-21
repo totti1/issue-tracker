@@ -66,7 +66,6 @@ export default function DashboardApp() {
       localStorage.setItem('issues', JSON.stringify(data))
       setILoading(false);
     } catch (error) {
-      console.log(error);
     }
   };
   const getProjects = async (Token) => {
@@ -85,7 +84,7 @@ export default function DashboardApp() {
       localStorage.setItem('projects', JSON.stringify(data))
       setPLoading(false);
     } catch (error) {
-      console.log(error);
+
     }
   };
 
@@ -93,7 +92,7 @@ export default function DashboardApp() {
     <Page title="Dashboard | Minimal-UI">
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
-          <Typography variant="h4">Hi, {user.first_name} Welcome Back</Typography>
+          <Typography variant="h4"> Welcome back, {user.first_name}!</Typography>
         </Box>
         <Grid container spacing={3}>
 
