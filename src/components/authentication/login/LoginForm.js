@@ -1,10 +1,10 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
-// import axios from 'axios';
+import axios from 'axios';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 // material
 import {
@@ -18,8 +18,6 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
-// ----------------------------------------------------------------------
-const axios = require('axios');
 
 const API =
   process.env.NODE_ENV !== 'production'
@@ -35,7 +33,12 @@ export default function LoginForm() {
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required')
   });
-
+  useEffect(() => {
+    const check = localStorage.getItem('loggedin')
+    if (check) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [])
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -44,7 +47,6 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: async (e) => {
-      localStorage.clear();
       const info = {
         email: e.email,
         password: e.password
@@ -53,20 +55,19 @@ export default function LoginForm() {
       axios
         .post(`${API}/auth/signin/`, info)
         .then((response) => {
-          const {
-            data: { status, data, message }
-          } = response;
-          if (status === 200) {
-            localStorage.setItem('user', JSON.stringify(data));
+          const data = response;
+          if (data.status === 200) {
+            localStorage.setItem('user', JSON.stringify(data.data));
             localStorage.setItem('loggedin', true);
             navigate('/dashboard', { replace: true });
           } else {
             alert('Email or Password mismatch');
           }
-          setLoading(false);
+
         })
         .catch((error) => {
-          console.log(error);
+          setLoading(false);
+          alert('Email or Password mismatch');
         });
     }
   });
@@ -127,7 +128,7 @@ export default function LoginForm() {
           size="large"
           type="submit"
           variant="contained"
-          loading={isSubmitting}
+          loading={loading}
         >
           Login
         </LoadingButton>

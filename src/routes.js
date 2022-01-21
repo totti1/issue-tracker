@@ -32,13 +32,13 @@ export default function Router() {
           element: logged ? (
             <Navigate to="/dashboard/app" replace />
           ) : (
-            <Navigate to="/login" replace />
-          )
+              <Navigate to="/login" replace />
+            )
         },
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'projects', element: <Projects /> },
-        { path: 'issues', element: <Issues /> },
+        { path: 'issues/:id', element: <Issues /> },
         { path: 'profile', element: <ProfilPage /> },
         { path: 'new/project', element: <NewProject /> }
       ]
@@ -48,9 +48,9 @@ export default function Router() {
       element: <LogoOnlyLayout />,
       children: [
         { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
+        { path: 'register/:id', element: <Register /> },
         { path: '404', element: <NotFound /> },
-        { path: '/', element: <Navigate to="/dashboard" /> },
+        { path: '/', element: <Navigate to="/login" /> },
         { path: '*', element: <Navigate to="/404" /> }
       ]
     },

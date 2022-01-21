@@ -55,6 +55,17 @@ function NewsItem({ project }) {
 }
 
 export default function AppNewsUpdate({ projects }) {
+  if (!projects) {
+    return (
+      <Card>
+        <CardHeader title="Most Highlighted Issues" />
+
+        <Box sx={{ p: 2, textAlign: 'center' }}>
+          <div>No Issue reported yet</div>
+        </Box>
+      </Card>
+    );
+  }
   return (
     <Card>
       <CardHeader title="Most Highlighted Issues" />

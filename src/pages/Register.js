@@ -1,4 +1,7 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import axios from 'axios';
+import { useParams } from 'react-router';
 // material
 import { styled } from '@mui/material/styles';
 import { Box, Card, Link, Container, Typography } from '@mui/material';
@@ -33,20 +36,57 @@ const ContentStyle = styled('div')(({ theme }) => ({
   minHeight: '50vh',
   flexDirection: 'column',
   justifyContent: 'center'
-  // padding: theme.spacing(12, 0)
 }));
 
-// ----------------------------------------------------------------------
+const API =
+  process.env.NODE_ENV !== 'production'
+    ? process.env.REACT_APP_API_DEV
+    : process.env.REACT_APP_API_URL;
 
-export default function Register() {
+const Register = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setLoading(true);
+    if (id) {
+      checkUser()
+    }
+  }, [])
+
+  const checkUser = async () => {
+    const requestOptions = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${id}`,
+      },
+    };
+    try {
+      const response = await fetch(`${API}/auth/user`, requestOptions);
+      const data = await response.json();
+      if (data.status === 404) {
+        setData(data);
+      } else if (data.status === 200) {
+        let info = data
+        localStorage.setItem('user', JSON.stringify(info));
+        localStorage.setItem('loggedin', true);
+        navigate('/dashboard', { replace: true });
+      } else {
+        alert('Email or Password mismatch');
+      }
+
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <RootStyle title="Register | Minimal-UI">
-      {/* <AuthLayout>
-        Already have an account? &nbsp;
-        <Link underline="none" variant="subtitle2" component={RouterLink} to="/login">
-          Login
-        </Link>
-      </AuthLayout> */}
 
       <MHidden width="mdDown">
         <SectionStyle>
@@ -63,27 +103,8 @@ export default function Register() {
             <Typography variant="h4" gutterBottom>
               Register New Client
             </Typography>
-            {/* <Typography sx={{ color: 'text.secondary' }}>
-              Free forever. No credit card needed.
-            </Typography> */}
           </Box>
-
-          {/* <AuthSocial /> */}
-
-          <RegisterForm />
-
-          {/* <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-            By registering, I agree to Minimal&nbsp;
-            <Link underline="always" sx={{ color: 'text.primary' }}>
-              Terms of Service
-            </Link>
-            &nbsp;and&nbsp;
-            <Link underline="always" sx={{ color: 'text.primary' }}>
-              Privacy Policy
-            </Link>
-            .
-          </Typography> */}
-
+          {!loading && <RegisterForm email={data.email} token={id} />}
           <MHidden width="smUp">
             <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
               Already have an account?&nbsp;
@@ -97,3 +118,4 @@ export default function Register() {
     </RootStyle>
   );
 }
+export default Register
