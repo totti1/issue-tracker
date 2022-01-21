@@ -26,23 +26,22 @@ export default function DashboardApp() {
   const [user, setUser] = useState({});
   const [issues, setIssues] = useState([]);
   useEffect(() => {
-    const { data } = JSON.parse(localStorage.getItem('user'));
-    const Pr = JSON.parse(localStorage.getItem('projects'));
-    const Is = JSON.parse(localStorage.getItem('issues'));
-    if (data) {
-      setUser(data);
+    try {
+      const userData = localStorage.getItem('user')
+      if (!userData) {
+        return false
+      }
+      const { data } = JSON.parse(userData);
+      getIssues(data.token);
+      getProjects(data.token);
+      if (data) {
+        setUser(data);
+      }
+    } catch (error) {
+      console.log(error)
     }
-    if (Pr) {
-      setProjects(Pr)
-      setPLoading(false);
-    }
-    getProjects(data.token);
-    if (Is) {
-      setIssues(Pr)
-      setILoading(false);
-    }
-    getIssues(data.token);
-  }, []);
+
+  }, [0]);
   const getIssues = async (Token) => {
 
     const requestOptions = {
@@ -86,7 +85,7 @@ export default function DashboardApp() {
     <Page title="Dashboard | Minimal-UI">
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
-          <Typography variant="h4"> Welcome back, {user.first_name}!</Typography>
+          <Typography variant="h4"> Welcome back, {user.first_name || 'again'}!</Typography>
         </Box>
         <Grid container spacing={3}>
 

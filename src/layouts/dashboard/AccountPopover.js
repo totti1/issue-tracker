@@ -41,11 +41,20 @@ export default function AccountPopover() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    const {data} = JSON.parse(localStorage.getItem('user'))
-    if (data) {
-      setUser(data)
-      setLoading(false)
+    try {
+      const userData = localStorage.getItem('user')
+      if (!userData) {
+        return false
+      }
+      const { data } = JSON.parse(userData);
+      if (data) {
+        setUser(data)
+        setLoading(false)
+      }
+    } catch (error) {
+
     }
+
   }, [0])
   const handleOpen = () => {
     setOpen(true);

@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { IssuePostCard, IssuePostsSort, IssuePostsSearch } from '../components/_dashboard/issues';
+import { IssuePostCard, IssuePostsSort } from '../components/_dashboard/issues';
 //
 import POSTS from '../_mocks_/issues';
 import { HomeSideMenu } from '../components/home';
@@ -30,13 +30,20 @@ export default function Issues() {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const { data } = JSON.parse(localStorage.getItem('user'));
-    const Is = JSON.parse(localStorage.getItem('issues'));
-    
+    const userData = localStorage.getItem('user')
+    if (!userData) {
+      return false
+    }
+    const { data } = JSON.parse(userData);
+    let Is = localStorage.getItem('issues')
     if (Is) {
-      const issue = Is.filter(i => i.projectid == id)
-      setIssues(issue)
-      setLoading(false)
+      try {
+        const Iss = JSON.parse(Is);
+        const issue = Iss.filter(i => i.projectid === id)
+        setIssues(issue)
+      } catch (error) {
+        setLoading(false)
+      }
     }
     getAllIssues(data.token);
   }, [0]);
@@ -87,7 +94,6 @@ export default function Issues() {
           alignItems='center'
           justifyContent='space-between'
         >
-          <IssuePostsSearch posts={Issues} />
           <IssuePostsSort options={SORT_OPTIONS} />
         </Stack>
 

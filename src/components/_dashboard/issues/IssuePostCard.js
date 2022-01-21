@@ -38,7 +38,11 @@ export default function IssuePostCard({ issue, index }) {
   const latestIssueLarge = 0;
   const latestIssue = 0;
   const sendToJira = async () => {
-    const { data } = JSON.parse(localStorage.getItem('user'));
+    const userData = localStorage.getItem('user')
+    if (!userData) {
+      return false
+    }
+    const { data } = JSON.parse(userData);
     setLoading(true);
     let info = {
       title,

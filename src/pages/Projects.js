@@ -36,7 +36,11 @@ export default function Projects() {
   const handleClose = () => setOpen(false);
   const sendInvite = async () => {
     const URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : window.location.hostname
-    const { data } = JSON.parse(localStorage.getItem('user'));
+    const userData = localStorage.getItem('user')
+    if (!userData) {
+      return false
+    }
+    const { data } = JSON.parse(userData);
     setLoading(true);
     let info = {
       url: URL,

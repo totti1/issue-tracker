@@ -44,13 +44,21 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const { data } = JSON.parse(localStorage.getItem('user'));
-    setUser(data);
+    try {
+      const userData = localStorage.getItem('user')
+      if (!userData) {
+        return false
+      }
+      const { data } = JSON.parse(userData);
+      setUser(data);
+    } catch (error) {
+
+    }
+
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, []);
 
   const renderContent = (
     <Scrollbar
