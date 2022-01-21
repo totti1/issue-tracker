@@ -32,6 +32,7 @@ export default function Issues() {
   useEffect(() => {
     const { data } = JSON.parse(localStorage.getItem('user'));
     const Is = JSON.parse(localStorage.getItem('issues'));
+    
     if (Is) {
       const issue = Is.filter(i => i.projectid == id)
       setIssues(issue)
@@ -69,7 +70,7 @@ export default function Issues() {
           mb={5}
         >
           <Typography variant='h4' gutterBottom>
-            Issues reported for Project 1
+            Issues reported
           </Typography>
           <Button
             variant='contained'
