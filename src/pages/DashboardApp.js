@@ -8,13 +8,18 @@ import {
   // AppNewUsers,
   // AppBugReports,
   // AppItemOrders,
-  AppNewsUpdate,
+  // AppNewsUpdate,
   // AppWeeklySales,
   // AppOrderTimeline,
   // AppCurrentVisits,
   // AppWebsiteVisits,
   // AppTrafficBySite,
   // AppCurrentSubject,
+  AppNewUsers,
+  AppBugReports,
+  AppItemOrders,
+  AppNewsUpdate,
+  AppWeeklySales,
   AppConversionRates
 } from '../components/_dashboard/app';
 

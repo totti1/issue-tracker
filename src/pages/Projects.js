@@ -13,17 +13,63 @@ import { BasicModal } from '../components/_dashboard/projects';
 import Page from '../components/Page';
 
 import { projectsMock } from '../__mocks__/projectsMock';
-
+const API =
+  process.env.NODE_ENV !== 'production'
+    ? process.env.REACT_APP_API_DEV
+    : process.env.REACT_APP_API_URL;
 
 export default function Projects() {
   const [open, setOpen] = useState(false);
   const [projects, setProjects] = useState([])
+  const [ID, setID] = useState(0)
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     const Projects = JSON.parse(localStorage.getItem('projects'))
     setProjects(Projects)
-  }, [])
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  }, [0])
+  const handleOpen = (id) => {
+    setID(id)
+    setOpen(true)
+  };
+
+  const handleClose = () => {
+    setOpen(false)
+  };
+  const sendInvite = async () => {
+    const URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : window.location.hostname
+    const { data } = JSON.parse(localStorage.getItem('user'));
+    setLoading(true);
+    let info = {
+      url: URL,
+      email,
+      projectID: ID
+    }
+    const requestOptions = {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${data.token}`,
+      },
+      body: JSON.stringify(info)
+    };
+    try {
+      const response = await fetch(`${API}/auth/invite`, requestOptions);
+      const data = await response.json();
+
+      setOpen(false)
+      if (data.status === 200 || data.error === "Data Already Inserted!") {
+        alert('Invited successful');
+      } else {
+        alert('Something went wrong');
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <Page title="Projects | Issue Tracker">
       <Container>
@@ -41,8 +87,9 @@ export default function Projects() {
                 projectKey={items.key}
                 projectID={items.id}
                 projectLead={items.lead.displayName}
-                onClick={handleOpen}
-                redirectTo={`/dashboard/issues/${items.id}`}
+                onClickInviteClient={() => handleOpen(items.id)}
+                redirectToIssues={`/dashboard/issues/${items.id}`}
+                redirectToNewIssue="/dashboard/new/issue/"
               />
             </Grid>
           ))}
@@ -57,9 +104,10 @@ export default function Projects() {
           autoComplete="username"
           type="email"
           label="Email address"
+          onChange={(e) => setEmail(e.target.value)}
           sx={{ marginTop: 2, marginBottom: 2 }}
         />
-        <LoadingButton fullWidth size="large" type="submit" variant="contained">
+        <LoadingButton onClick={sendInvite} fullWidth size="large" type="submit" variant="contained">
           Send Invitation
         </LoadingButton>
       </BasicModal>
