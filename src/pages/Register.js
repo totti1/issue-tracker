@@ -1,6 +1,5 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
-import axios from 'axios';
 import { useParams } from 'react-router';
 // material
 import { styled } from '@mui/material/styles';
@@ -68,8 +67,9 @@ const Register = () => {
     try {
       const response = await fetch(`${API}/auth/user`, requestOptions);
       const data = await response.json();
-      if (data.status === 404) {
+      if (data.status === 202) {
         setData(data);
+        setLoading(false)
       } else if (data.status === 200) {
         let info = data
         localStorage.setItem('user', JSON.stringify(info));
@@ -78,11 +78,8 @@ const Register = () => {
       } else {
         alert('Email or Password mismatch');
       }
-
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
   }
   return (

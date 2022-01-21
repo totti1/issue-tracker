@@ -93,7 +93,7 @@ export default function Projects() {
                 projectLead={items.lead.displayName}
                 onClickInviteClient={() => handleOpen(items.id)}
                 redirectToIssues={`/dashboard/issues/${items.id}`}
-                redirectToNewIssue="/dashboard/new/issue/"
+                redirectToNewIssue={`/dashboard/new/issue/${items.id}`}
               />
             </Grid>
           ))}

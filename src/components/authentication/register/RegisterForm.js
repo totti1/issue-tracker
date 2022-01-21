@@ -50,25 +50,29 @@ const RegisterForm = ({ email, token }) => {
         password: e.password
       };
       setLoading(true);
-      axios
-        .post(`${API}/auth/signup/${token}`, info)
-        .then((response) => {
+      try {
+        axios
+          .post(`${API}/auth/signup/${token}`, info)
+          .then((response) => {
+            const data = response;
+            console.log(data)
+            if (data.status === 201 || data.status === 202) {
+              localStorage.setItem('user', JSON.stringify(data));
+              localStorage.setItem('loggedin', true);
+              navigate('/dashboard/app', { replace: true });
+            } else {
+              setLoading(false);
+              alert('Something went wrong. Reflesh');
+            }
+          })
+          .catch((error) => {
+            setLoading(false);
+            alert(error.message);
+          });
+      } catch (error) {
 
-          const data = response;
-          if (data.status === 200) {
-            let info = data.data
-            localStorage.setItem('user', JSON.stringify(data));
-            localStorage.setItem('loggedin', true);
-            navigate('/dashboard', { replace: true });
-          } else {
-            alert('Something went wrong. Reflesh');
-          }
-          setLoading(false);
-        })
-        .catch((error) => {
-          setLoading(false);
-          alert('Something went wrong. Reflesh');
-        });
+      }
+
     }
 
   });

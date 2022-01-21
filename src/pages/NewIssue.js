@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box, Card, Link, Container, Typography } from '@mui/material';
 // components
-import { ProjectForm } from '../components/_dashboard/projects';
+import { IssueForm } from '../components/_dashboard/projects';
 import Page from '../components/Page';
 
 // ----------------------------------------------------------------------
@@ -36,6 +36,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function NewIssue() {
+
   return (
     <RootStyle title="Register | Minimal-UI">
       <Container>
@@ -45,7 +46,7 @@ export default function NewIssue() {
               Report New Issue
             </Typography>
           </Box>
-          <ProjectForm />
+          <IssueForm />
         </ContentStyle>
       </Container>
     </RootStyle>
