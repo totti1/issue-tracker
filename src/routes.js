@@ -17,12 +17,12 @@ import ProfilPage from './pages/profilPage';
 
 // ----------------------------------------------------------------------
 
-export default function Router() {
+const Router = () => {
   const [logged, setLogged] = useState(false);
   useEffect(() => {
     const checked = localStorage.getItem('loggedin');
     setLogged(checked);
-  }, []);
+  }, [0]);
   return useRoutes([
     {
       path: '/dashboard',
@@ -57,3 +57,4 @@ export default function Router() {
     { path: '*', element: <Navigate to="/404" replace /> }
   ]);
 }
+export default Router
