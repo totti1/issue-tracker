@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { useRef, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
@@ -38,8 +38,15 @@ export default function AccountPopover() {
   const navigate = useNavigate();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    const {data} = JSON.parse(localStorage.getItem('user'))
+    if (data) {
+      setUser(data)
+      setLoading(false)
+    }
+  }, [0])
   const handleOpen = () => {
     setOpen(true);
   };
@@ -84,10 +91,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {user.first_name} {user.last_name}
+            {!loading && user.first_name} {!loading && user.last_name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {user.email}
+            {!loading && user.email}
           </Typography>
         </Box>
 
