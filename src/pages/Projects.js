@@ -1,24 +1,8 @@
-// import { filter } from 'lodash';
-// import { Icon } from '@iconify/react';
-// import { sentenceCase } from 'change-case';
-import { useState } from 'react';
-// import plusFill from '@iconify/icons-eva/plus-fill';
-// import { Link as RouterLink } from 'react-router-dom';
-// material
+import { useState, useEffect } from 'react';
 import {
-  // Card,
-  // Table,
   Stack,
-  // Avatar,
-  // Button,
-  // Checkbox,
-  // TableRow,
-  // TableBody,
-  // TableCell,
   Container,
   Typography,
-  // TableContainer,
-  // TablePagination,
   TextField,
   Grid
 } from '@mui/material';
@@ -33,6 +17,11 @@ import { projectsMock } from '../__mocks__/projectsMock';
 
 export default function Projects() {
   const [open, setOpen] = useState(false);
+  const [projects, setProjects] = useState([])
+  useEffect(() => {
+    const Projects = JSON.parse(localStorage.getItem('projects'))
+    setProjects(Projects)
+  }, [])
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
@@ -44,14 +33,16 @@ export default function Projects() {
           </Typography>
         </Stack>
         <Grid container spacing={3}>
-          {projectsMock.map((items) => (
+          {projects && projects.map((items) => (
             <Grid item xs={4}>
               <ProjectCard
-                issueTitle={items.title}
-                issueDescription={items.description}
-                issueDateCreated={items.createdAt}
+                issueTitle={`${items.name}(${items.key})`}
+                projectTypeKey={items.projectTypeKey}
+                projectKey={items.key}
+                projectID={items.id}
+                projectLead={items.lead.displayName}
                 onClick={handleOpen}
-                redirectTo="/dashboard/issues"
+                redirectTo={`/dashboard/issues/${items.id}`}
               />
             </Grid>
           ))}

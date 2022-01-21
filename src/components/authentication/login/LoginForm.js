@@ -57,8 +57,7 @@ export default function LoginForm() {
         .then((response) => {
           const data = response;
           if (data.status === 200) {
-            let info = data.data
-            localStorage.setItem('user', JSON.stringify(data));
+            localStorage.setItem('user', JSON.stringify(data.data));
             localStorage.setItem('loggedin', true);
             navigate('/dashboard', { replace: true });
           } else {

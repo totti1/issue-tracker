@@ -71,7 +71,7 @@ const Register = () => {
       if (data.status === 404) {
         setData(data);
       } else if (data.status === 200) {
-        let info = data.data
+        let info = data
         localStorage.setItem('user', JSON.stringify(info));
         localStorage.setItem('loggedin', true);
         navigate('/dashboard', { replace: true });

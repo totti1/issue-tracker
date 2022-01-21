@@ -7,10 +7,10 @@ export default function ProjectCard(props) {
 
   return (
     <Card sx={{ minWidth: 345, marginBottom: 2 }}>
-      <CardHeader title={props.issueTitle} subheader={props.issueDateCreated} />
+      <CardHeader title={props.issueTitle} subheader={props.projectTypeKey} />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {props.issueDescription}
+        <Typography variant="body" color="text.secondary">
+          Created by {props.projectLead}
         </Typography>
       </CardContent>
       <CardActions sx={{ marginLeft: '2.5%' }}>
@@ -18,7 +18,7 @@ export default function ProjectCard(props) {
           Check Issues
         </Button>
         <Button size="small" onClick={props.onClick}>
-          Add new client
+          Invite client
         </Button>
       </CardActions>
     </Card>

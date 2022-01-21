@@ -38,7 +38,7 @@ export default function Router() {
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'projects', element: <Projects /> },
-        { path: 'issues', element: <Issues /> },
+        { path: 'issues/:id', element: <Issues /> },
         { path: 'profile', element: <ProfilPage /> },
         { path: 'new/project', element: <NewProject /> }
       ]
