@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Paper,
   CardHeader,
   ListItemButton,
   ListItemText,
@@ -46,7 +45,7 @@ export default function AlignItemsList({ recent }) {
             <Divider />
             <ListItemButton alignItems="flex-start">
               <ListItemText
-                key={item.id}
+                key={index}
                 primary={item.name}
                 variant="subtitle2"
                 secondary={

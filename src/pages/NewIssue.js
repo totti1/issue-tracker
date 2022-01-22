@@ -1,7 +1,6 @@
-import { Link as RouterLink } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Card, Link, Container, Typography } from '@mui/material';
+import { Box, Card,Container, Typography } from '@mui/material';
 // components
 import { IssueForm } from '../components/_dashboard/projects';
 import Page from '../components/Page';
@@ -30,7 +29,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
   minHeight: '50vh',
   flexDirection: 'column',
   justifyContent: 'center'
-  // padding: theme.spacing(12, 0)
 }));
 
 // ----------------------------------------------------------------------

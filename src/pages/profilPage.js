@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react';
 import { Grid, Typography } from '@mui/material';
 // components
 import { HomeSideMenu, UserProfileSide } from '../components/home';
-import POSTS from '../_mocks_/issues';
-import { IssuePostCard } from 'src/components/_dashboard/issues';
-
+import { IssuePostCard } from '../components/_dashboard/issues';
 
 // ----------------------------------------------------------------------
 
@@ -13,16 +11,18 @@ export default function ProfilPage() {
   const [issues, setIssues] = useState(null)
   const [projects, setProjects] = useState(null)
   useEffect(() => {
-    try {
-      const issues = JSON.parse(localStorage.getItem('issues'))
-      const projects = JSON.parse(localStorage.getItem('projects'))
-      setIssues(issues)
-      setProjects(projects)
-    } catch (error) {
-      console.log(error)
+    const getAlldata = () => {
+      try {
+        const issues = JSON.parse(localStorage.getItem('issues'));
+        const projects = JSON.parse(localStorage.getItem('projects'));
+        setIssues(issues);
+        setProjects(projects);
+      } catch (error) {
+      }
     }
+    getAlldata()
+  }, [0])
 
-  }, [issues])
   return (
     <div>
       <Grid container spacing={3} sx={{ pb: 5 }}>

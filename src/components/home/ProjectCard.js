@@ -14,7 +14,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export default function ProjectCard(props) {
-  // const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -69,9 +68,6 @@ export default function ProjectCard(props) {
         <Button size="small" to={props.redirectToIssues} component={RouterLink}>
           Check Issues
         </Button>
-        {/* <Button size="small" onClick={props.onClick}>
-          Invite client
-        </Button> */}
       </CardActions>
     </Card>
   );

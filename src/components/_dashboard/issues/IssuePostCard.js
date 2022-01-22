@@ -1,17 +1,15 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
 import {
   Link,
   Card,
-  Grid,
   Typography,
   CardContent,
   Button,
   CardActions
 } from '@mui/material';
-import axios from 'axios';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 // utils
 import { fDate } from '../../../utils/formatTime';
 
@@ -32,13 +30,12 @@ const API =
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
 export default function IssuePostCard({ issue, index }) {
-  const navigate = useNavigate();
-  const { id, projectid, title, description } = issue;
+  const { projectid, title, description } = issue;
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState(null)
   const latestIssueLarge = 0;
   const latestIssue = 0;
-  const sendToJira = async () => {
+  useEffect(() => {
     const userData = localStorage.getItem('user')
     if (!userData) {
       return false
@@ -47,6 +44,9 @@ export default function IssuePostCard({ issue, index }) {
     if (data) {
       setUser(data)
     }
+  }, [user])
+  const sendToJira = async () => {
+
     setLoading(true);
     let info = {
       title,
@@ -58,7 +58,7 @@ export default function IssuePostCard({ issue, index }) {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${data.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify(info)
     };
@@ -78,7 +78,7 @@ export default function IssuePostCard({ issue, index }) {
     }
   }
   return (
-    <Card>
+    <Card key={index}>
       <CardContent
         sx={{
           pt: 4,

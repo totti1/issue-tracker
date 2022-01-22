@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Typography, Avatar, ListItemIcon, Divider, CardHeader, Card } from '@mui/material';
+import { Typography, ListItemIcon, CardHeader, Card } from '@mui/material';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-
 import ImageAvatars from './avatar';
 
 export default function UserProfileSide() {

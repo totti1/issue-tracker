@@ -12,7 +12,6 @@ import { ProjectCard } from '../components/home';
 import { BasicModal } from '../components/_dashboard/projects';
 import Page from '../components/Page';
 
-import { projectsMock } from '../__mocks__/projectsMock';
 const API =
   process.env.NODE_ENV !== 'production'
     ? process.env.REACT_APP_API_DEV
@@ -25,8 +24,13 @@ export default function Projects() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   useEffect(() => {
-    const Projects = JSON.parse(localStorage.getItem('projects'))
-    setProjects(Projects)
+    try {
+      const Projects = JSON.parse(localStorage.getItem('projects'))
+      setProjects(Projects)
+    } catch (error) {
+
+    }
+
   }, [0])
   const handleOpen = (id) => {
     setID(id)
