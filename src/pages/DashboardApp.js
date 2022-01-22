@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // material
 import { Box, Grid, Container, Typography } from '@mui/material';
 // components
@@ -14,6 +15,7 @@ const API =
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
 export default function DashboardApp() {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [iloading, setILoading] = useState(true);
   const [ploading, setPLoading] = useState(true);
@@ -24,16 +26,19 @@ export default function DashboardApp() {
     try {
       const userData = localStorage.getItem('user')
       if (!userData) {
-        return false
+        navigate('/login', { replace: true });
       }
       const { data } = JSON.parse(userData);
+      if (data) {
+        setUser(data);
+      } else {
+        navigate('/login', { replace: true });
+      }
       let myPro = data.projects.map(i => i.projectid)
       setMyProjects(myPro)
       getIssues(data.token);
       getProjects(data.token);
-      if (data) {
-        setUser(data);
-      }
+
     } catch (error) {
       console.log(error)
     }
