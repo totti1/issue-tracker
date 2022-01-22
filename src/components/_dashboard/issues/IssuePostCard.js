@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
 import {
   Link,
@@ -38,7 +38,7 @@ export default function IssuePostCard({ issue, index }) {
   const [user, setUser] = useState(null)
   const latestIssueLarge = 0;
   const latestIssue = 0;
-  const sendToJira = async () => {
+  useEffect(() => {
     const userData = localStorage.getItem('user')
     if (!userData) {
       return false
@@ -47,6 +47,9 @@ export default function IssuePostCard({ issue, index }) {
     if (data) {
       setUser(data)
     }
+  }, [user])
+  const sendToJira = async () => {
+
     setLoading(true);
     let info = {
       title,
@@ -58,7 +61,7 @@ export default function IssuePostCard({ issue, index }) {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${data.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify(info)
     };
