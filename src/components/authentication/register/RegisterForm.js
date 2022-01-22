@@ -55,7 +55,6 @@ const RegisterForm = ({ email, token }) => {
           .post(`${API}/auth/signup/${token}`, info)
           .then((response) => {
             const data = response;
-            console.log(data)
             if (data.status === 201 || data.status === 202) {
               localStorage.setItem('user', JSON.stringify(data));
               localStorage.setItem('loggedin', true);

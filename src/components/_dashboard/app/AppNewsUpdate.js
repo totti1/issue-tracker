@@ -1,7 +1,5 @@
-// import faker from 'faker';
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
-// import { formatDistance } from 'date-fns';
 import { Link as RouterLink } from 'react-router-dom';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 // material
@@ -10,20 +8,6 @@ import { Box, Stack, Link, Card, Button, Divider, Typography, CardHeader } from 
 import { mockImgCover } from '../../../utils/mockImages';
 //
 import Scrollbar from '../../Scrollbar';
-
-// ----------------------------------------------------------------------
-
-// const NEWS = [...Array(5)].map((_, index) => {
-//   const setIndex = index + 1;
-//   return {
-//     title: faker.name.title(),
-//     description: faker.lorem.paragraphs(),
-//     image: mockImgCover(setIndex),
-//     postedAt: faker.date.soon()
-//   };
-// });
-
-// ----------------------------------------------------------------------
 
 NewsItem.propTypes = {
   news: PropTypes.object.isRequired
@@ -82,13 +66,13 @@ export default function AppNewsUpdate({ projects }) {
 
       <Box sx={{ p: 2, textAlign: 'right' }}>
         <Button
-          to="#"
+          to="/dashboard/profile/"
           size="small"
           color="inherit"
           component={RouterLink}
           endIcon={<Icon icon={arrowIosForwardFill} />}
         >
-          View all
+          My Issues
         </Button>
       </Box>
     </Card>

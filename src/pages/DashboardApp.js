@@ -4,22 +4,7 @@ import { Box, Grid, Container, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
 import {
-  // AppTasks,
-  // AppNewUsers,
-  // AppBugReports,
-  // AppItemOrders,
-  // AppNewsUpdate,
-  // AppWeeklySales,
-  // AppOrderTimeline,
-  // AppCurrentVisits,
-  // AppWebsiteVisits,
-  // AppTrafficBySite,
-  // AppCurrentSubject,
-  AppNewUsers,
-  AppBugReports,
-  AppItemOrders,
   AppNewsUpdate,
-  AppWeeklySales,
   AppConversionRates
 } from '../components/_dashboard/app';
 
@@ -28,8 +13,6 @@ const API =
   process.env.NODE_ENV !== 'production'
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
-const JIRA_URL = process.env.REACT_APP_JIRA_URL;
-const JIRA_KEY = process.env.REACT_APP_JIRA_KEY;
 export default function DashboardApp() {
   const [projects, setProjects] = useState([]);
   const [iloading, setILoading] = useState(true);

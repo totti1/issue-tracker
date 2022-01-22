@@ -31,13 +31,19 @@ export default function AppConversionRates({ projects }) {
 
   return (
     <Card>
-      <CardHeader title="Issues reported per project" subheader="last year" />
-      <Box sx={{ mx: 3 }} dir="ltr">
+      <CardHeader title="All projects" subheader="Jira" />
+      <Box sx={{ mx: 1 }} dir="ltr">
         <ReactApexChart
           type="bar"
           series={CHART_DATA}
           options={chartOptions}
-          height={projects.length * 100}
+          height={projects.length * 35}
+        />
+          <ReactApexChart
+          type="line"
+          series={CHART_DATA}
+          options={chartOptions}
+          height={projects.length * 35}
         />
       </Box>
     </Card>
