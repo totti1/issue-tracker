@@ -7,18 +7,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { IssuePostCard, IssuePostsSort } from '../components/_dashboard/issues';
-//
-import POSTS from '../_mocks_/issues';
-import { HomeSideMenu } from '../components/home';
+import { IssuePostCard } from '../components/_dashboard/issues';
 
-// ----------------------------------------------------------------------
-
-const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' },
-];
 
 // ----------------------------------------------------------------------
 const API =

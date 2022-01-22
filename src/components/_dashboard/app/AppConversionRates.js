@@ -7,8 +7,6 @@ import { fNumber } from '../../../utils/formatNumber';
 //
 import { BaseOptionChart } from '../../charts';
 
-// ----------------------------------------------------------------------
-
 export default function AppConversionRates({ projects }) {
   const CHART_DATA = [{ data: projects.map((i) => i.id - 10000) }];
   const chartOptions = merge(BaseOptionChart(), {

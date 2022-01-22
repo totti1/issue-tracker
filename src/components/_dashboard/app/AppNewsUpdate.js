@@ -56,7 +56,7 @@ export default function AppNewsUpdate({ projects }) {
 
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
-          {projects.reverse().splice(0, 4).map((pro) => (
+          {projects.reverse().map((pro) => (
             <NewsItem key={pro.title} project={pro} />
           ))}
         </Stack>
