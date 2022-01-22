@@ -61,7 +61,7 @@ export default function LoginForm() {
             localStorage.setItem('loggedin', true);
             navigate('/dashboard', { replace: true });
           } else {
-            alert('Email or Password mismatch');
+            alert('Oops!');
           }
 
         })

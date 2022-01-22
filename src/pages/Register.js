@@ -50,9 +50,12 @@ const Register = () => {
 
   useEffect(() => {
     setLoading(true);
-    if (id) {
-      checkUser()
-    }
+    setTimeout(() => {
+      if (id) {
+        checkUser()
+      }
+    }, 1000)
+
   }, [])
 
   const checkUser = async () => {
@@ -71,12 +74,11 @@ const Register = () => {
         setData(data);
         setLoading(false)
       } else if (data.status === 200) {
-        let info = data
-        localStorage.setItem('user', JSON.stringify(info));
+        localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('loggedin', true);
         navigate('/dashboard', { replace: true });
       } else {
-        alert('Email or Password mismatch');
+        alert('Oops!');
       }
     } catch (error) {
       console.log(error);

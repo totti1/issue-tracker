@@ -14,8 +14,10 @@ export default function ProfilPage() {
   return (
     <div>
       <Grid container spacing={3} sx={{ pb: 5 }}>
+        <Grid item xs={12} sx={{ marginBottom: 1 }}>
+          <Typography variant="h4">My Issues</Typography>
+        </Grid>
         <Grid item xs={8} sx={{ marginBottom: 20 }}>
-          <Typography variant="h4">My Issues</Typography><br />
           {POSTS.map((post, index) => (
             <IssuePostCard key={post.id} issue={post} post={post} index={index} />
           ))}

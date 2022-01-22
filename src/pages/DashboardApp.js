@@ -4,22 +4,7 @@ import { Box, Grid, Container, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
 import {
-  // AppTasks,
-  // AppNewUsers,
-  // AppBugReports,
-  // AppItemOrders,
-  // AppNewsUpdate,
-  // AppWeeklySales,
-  // AppOrderTimeline,
-  // AppCurrentVisits,
-  // AppWebsiteVisits,
-  // AppTrafficBySite,
-  // AppCurrentSubject,
-  AppNewUsers,
-  AppBugReports,
-  AppItemOrders,
   AppNewsUpdate,
-  AppWeeklySales,
   AppConversionRates
 } from '../components/_dashboard/app';
 
@@ -28,14 +13,13 @@ const API =
   process.env.NODE_ENV !== 'production'
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
-const JIRA_URL = process.env.REACT_APP_JIRA_URL;
-const JIRA_KEY = process.env.REACT_APP_JIRA_KEY;
 export default function DashboardApp() {
   const [projects, setProjects] = useState([]);
   const [iloading, setILoading] = useState(true);
   const [ploading, setPLoading] = useState(true);
   const [user, setUser] = useState({});
   const [issues, setIssues] = useState([]);
+  const [myProjects, setMyProjects] = useState([])
   useEffect(() => {
     try {
       const userData = localStorage.getItem('user')
@@ -43,6 +27,8 @@ export default function DashboardApp() {
         return false
       }
       const { data } = JSON.parse(userData);
+      let myPro = data.projects.map(i => i.projectid)
+      setMyProjects(myPro)
       getIssues(data.token);
       getProjects(data.token);
       if (data) {
@@ -52,7 +38,7 @@ export default function DashboardApp() {
       console.log(error)
     }
 
-  }, [0]);
+  }, [projects]);
   const getIssues = async (Token) => {
 
     const requestOptions = {
@@ -66,8 +52,15 @@ export default function DashboardApp() {
     try {
       const response = await fetch(`${API}/issues`, requestOptions);
       const { data } = await response.json();
-      setIssues(data);
-      localStorage.setItem('issues', JSON.stringify(data))
+      if (!user.isadmin) {
+        let myIssues = data.filter(i => myProjects.includes(i.projectid))
+        setIssues(myIssues);
+        localStorage.setItem('issues', JSON.stringify(myIssues))
+      } else {
+        setIssues(data);
+        localStorage.setItem('issues', JSON.stringify(data))
+      }
+
       setILoading(false);
     } catch (error) {
     }
@@ -84,8 +77,14 @@ export default function DashboardApp() {
     try {
       const response = await fetch(`${API}/projects`, requestOptions);
       const { data } = await response.json();
-      setProjects(data);
-      localStorage.setItem('projects', JSON.stringify(data))
+      if (!user.isadmin) {
+        let myPros = data.filter(i => myProjects.includes(i.id))
+        setProjects(myPros);
+        localStorage.setItem('projects', JSON.stringify(myPros))
+      } else {
+        setProjects(data);
+        localStorage.setItem('projects', JSON.stringify(data))
+      }
       setPLoading(false);
     } catch (error) {
 
