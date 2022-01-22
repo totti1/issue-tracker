@@ -39,13 +39,14 @@ export default function AlignItemsList({ recent }) {
   }
   return (
     <Card elevation={9}>
-      <CardHeader title="Joined Projects" />
+      <CardHeader title="Recent Projects" />
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {recent.reverse().splice(0, 3).map((item, index) => (
           <>
             <Divider />
             <ListItemButton alignItems="flex-start">
               <ListItemText
+                key={item.id}
                 primary={item.name}
                 variant="subtitle2"
                 secondary={
