@@ -10,60 +10,58 @@ import {
   Card
 } from '@mui/material';
 
-export default function AlignItemsList() {
+export default function AlignItemsList({ recent }) {
+  if (!recent) {
+    return (
+      <Card elevation={9}>
+        <CardHeader title="Joined Projects" />
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          <ListItemButton alignItems="flex-start">
+            <ListItemText
+              primary="============="
+              variant="subtitle2"
+              secondary={
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  No project found!
+              </Typography>
+              }
+            />
+          </ListItemButton>
+
+        </List>
+      </Card>
+    )
+  }
   return (
     <Card elevation={9}>
-      <CardHeader title="Other Projects" />
+      <CardHeader title="Joined Projects" />
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        <Divider />
-        <ListItemButton alignItems="flex-start">
-          <ListItemText
-            primary="Brunch this weekend?"
-            variant="subtitle2"
-            secondary={
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.secondary"
-              >
-                I'll be in your neighborhood doing errands
-              </Typography>
-            }
-          />
-        </ListItemButton>
-        <Divider />
-        <ListItemButton alignItems="flex-start">
-          <ListItemText
-            primary="Summer BBQ"
-            secondary={
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.secondary"
-              >
-                Wish I could come, but I'm out of town
-              </Typography>
-            }
-          />
-        </ListItemButton>
-        <Divider />
-        <ListItemButton alignItems="flex-start">
-          <ListItemText
-            primary="Oui Oui"
-            secondary={
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.secondary"
-              >
-                Do you have Paris recommendations?
-              </Typography>
-            }
-          />
-        </ListItemButton>
+        {recent.reverse().splice(0, 3).map((item, index) => (
+          <>
+            <Divider />
+            <ListItemButton alignItems="flex-start">
+              <ListItemText
+                primary={item.name}
+                variant="subtitle2"
+                secondary={
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    {item.key} | {item.lead.displayName}
+                  </Typography>
+                }
+              />
+            </ListItemButton>
+          </>
+        ))}
       </List>
     </Card>
   );
