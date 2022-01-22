@@ -37,13 +37,13 @@ export default function AppConversionRates({ projects }) {
           type="bar"
           series={CHART_DATA}
           options={chartOptions}
-          height={projects.length * 35}
+          height={250}
         />
           <ReactApexChart
           type="line"
           series={CHART_DATA}
           options={chartOptions}
-          height={projects.length * 35}
+          height={200}
         />
       </Box>
     </Card>
