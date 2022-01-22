@@ -68,7 +68,7 @@ export default function Issues() {
     }
   };
   return (
-    <Page title='Dashboard: Issues | Minimal-UI'>
+    <Page title='Dashboard: Issues'>
       <Container>
         <Stack
           direction='row'
@@ -88,17 +88,9 @@ export default function Issues() {
             New Issue
           </Button>
         </Stack>
-        <Stack
-          mb={5}
-          direction='row'
-          alignItems='center'
-          justifyContent='space-between'
-        >
-          <IssuePostsSort options={SORT_OPTIONS} />
-        </Stack>
 
         <Grid container spacing={3}>
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             {!loading &&
               issues.map((is, index) => (
                 <Grid item xs={12} sx={{ marginBottom: 2 }}>
@@ -110,9 +102,6 @@ export default function Issues() {
                   />
                 </Grid>
               ))}
-          </Grid>
-          <Grid item xs={4}>
-            <HomeSideMenu />
           </Grid>
         </Grid>
       </Container>

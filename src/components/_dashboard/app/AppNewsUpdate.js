@@ -42,7 +42,7 @@ export default function AppNewsUpdate({ projects }) {
   if (!projects) {
     return (
       <Card>
-        <CardHeader title="Most Highlighted Issues" />
+        <CardHeader title="Most Recent Issues" />
 
         <Box sx={{ p: 2, textAlign: 'center' }}>
           <div>No Issue reported yet</div>
@@ -52,11 +52,11 @@ export default function AppNewsUpdate({ projects }) {
   }
   return (
     <Card>
-      <CardHeader title="Most Highlighted Issues" />
+      <CardHeader title="Most Recent Issues" />
 
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
-          {projects.map((pro) => (
+          {projects.reverse().splice(0, 4).map((pro) => (
             <NewsItem key={pro.title} project={pro} />
           ))}
         </Stack>

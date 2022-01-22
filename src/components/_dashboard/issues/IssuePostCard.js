@@ -35,6 +35,7 @@ export default function IssuePostCard({ issue, index }) {
   const navigate = useNavigate();
   const { id, projectid, title, description } = issue;
   const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState(null)
   const latestIssueLarge = 0;
   const latestIssue = 0;
   const sendToJira = async () => {
@@ -43,6 +44,9 @@ export default function IssuePostCard({ issue, index }) {
       return false
     }
     const { data } = JSON.parse(userData);
+    if (data) {
+      setUser(data)
+    }
     setLoading(true);
     let info = {
       title,
@@ -111,9 +115,11 @@ export default function IssuePostCard({ issue, index }) {
         <Typography variant="body2" color="text.secondary">
           {description}
         </Typography>
-        <CardActions>
-          <Button size="small" onClick={sendToJira}>{loading ? "Loading..." : "send to Jira"}</Button>
-        </CardActions>
+        {user && user.isadmin &&
+          <CardActions>
+            <Button size="small" onClick={sendToJira}>{loading ? "Loading..." : "send to Jira"}</Button>
+          </CardActions>
+        }
       </CardContent>
     </Card>
   );
