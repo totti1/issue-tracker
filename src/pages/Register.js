@@ -1,5 +1,6 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react';
+import LoadingBar from 'react-top-loading-bar'
 import { useParams } from 'react-router';
 // material
 import { styled } from '@mui/material/styles';
@@ -41,6 +42,7 @@ const API =
     : process.env.REACT_APP_API_URL;
 
 const Register = () => {
+  const ref = useRef(null)
   const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState(null)
@@ -57,6 +59,7 @@ const Register = () => {
   }, [])
 
   const checkUser = async () => {
+    ref.current.continuousStart()
     const requestOptions = {
       method: 'GET',
       mode: 'cors',
@@ -69,6 +72,7 @@ const Register = () => {
       const response = await fetch(`${API}/auth/user`, requestOptions);
       const data = await response.json();
       if (data.status === 202) {
+        ref.current.complete()
         setData(data);
         setLoading(false)
       } else if (data.status === 200) {
@@ -76,7 +80,6 @@ const Register = () => {
         localStorage.setItem('loggedin', true);
         navigate('/dashboard', { replace: true });
       } else {
-        alert('Oops!');
       }
     } catch (error) {
       console.log(error);
@@ -84,7 +87,7 @@ const Register = () => {
   }
   return (
     <RootStyle title="Register | Minimal-UI">
-
+      <LoadingBar color='#2ecc71' ref={ref} height={4} />
       <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
@@ -93,25 +96,25 @@ const Register = () => {
           <img alt="register" src="/static/illustrations/illustration_register.png" />
         </SectionStyle>
       </MHidden>
-
-      <Container>
-        <ContentStyle>
-          <Box sx={{ mb: 5 }}>
-            <Typography variant="h4" gutterBottom>
-              Register New Client
+      {!loading &&
+        <Container>
+          <ContentStyle>
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h4" gutterBottom>
+                Register New Client
             </Typography>
-          </Box>
-          {!loading && <RegisterForm email={data.email} token={id} />}
-          <MHidden width="smUp">
-            <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
-              Already have an account?&nbsp;
+            </Box>
+            <RegisterForm email={data.email} token={id} />
+            <MHidden width="smUp">
+              <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
+                Already have an account?&nbsp;
               <Link to="/login" component={RouterLink}>
-                Login
+                  Login
               </Link>
-            </Typography>
-          </MHidden>
-        </ContentStyle>
-      </Container>
+              </Typography>
+            </MHidden>
+          </ContentStyle>
+        </Container>}
     </RootStyle>
   );
 }

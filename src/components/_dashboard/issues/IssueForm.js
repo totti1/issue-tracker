@@ -52,7 +52,6 @@ export default function IssueForm() {
       try {
         const response = await fetch(`${API}/issue`, requestOptions);
         const data = await response.json();
-        console.log(data)
         if (data.status === 201 || data.status === 202) {
           alert('Issue reported successful');
           navigate('/dashboard/app', { replace: true });
