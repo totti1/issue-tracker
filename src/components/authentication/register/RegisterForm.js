@@ -15,7 +15,7 @@ const API =
   process.env.NODE_ENV !== 'production'
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
-const RegisterForm = ({ email, token }) => {
+export default function RegisterForm({ email, token }) {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -55,8 +55,8 @@ const RegisterForm = ({ email, token }) => {
           .post(`${API}/auth/signup/${token}`, info)
           .then((response) => {
             const data = response;
-            if (data.status === 201 || data.status === 202) {
-              localStorage.setItem('user', JSON.stringify(data));
+            if (data.status === 201) {
+              localStorage.setItem('user', JSON.stringify(data.data));
               localStorage.setItem('loggedin', true);
               navigate('/dashboard/app', { replace: true });
             } else {
@@ -162,4 +162,3 @@ const RegisterForm = ({ email, token }) => {
     </FormikProvider>
   );
 }
-export default RegisterForm

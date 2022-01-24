@@ -41,7 +41,7 @@ const API =
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
 
-const Register = () => {
+export default function Register() {
   const ref = useRef(null)
   const navigate = useNavigate();
   const { id } = useParams();
@@ -59,6 +59,7 @@ const Register = () => {
   }, [])
 
   const checkUser = async () => {
+    localStorage.clear()
     ref.current.continuousStart()
     const requestOptions = {
       method: 'GET',
@@ -118,4 +119,3 @@ const Register = () => {
     </RootStyle>
   );
 }
-export default Register
