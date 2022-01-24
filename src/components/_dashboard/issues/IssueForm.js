@@ -55,7 +55,7 @@ export default function IssueForm() {
         console.log(data)
         if (data.status === 201 || data.status === 202) {
           alert('Issue reported successful');
-          navigate('/dashboard/projects', { replace: true });
+          navigate('/dashboard/app', { replace: true });
         } else {
           alert('Internal server error');
         }
