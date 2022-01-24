@@ -23,8 +23,15 @@ export default function Projects() {
   const [ID, setID] = useState(0)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState(null)
   useEffect(() => {
     try {
+      const userData = localStorage.getItem('user')
+      if (!userData) {
+        return false
+      }
+      const { data } = JSON.parse(userData);
+      setUser(data)
       const Projects = JSON.parse(localStorage.getItem('projects'))
       setProjects(Projects)
     } catch (error) {
@@ -42,11 +49,7 @@ export default function Projects() {
   };
   const sendInvite = async () => {
     const URL = window.location.hostname === 'localhost' ? 'http://localhost:3000' : window.location.hostname
-    const userData = localStorage.getItem('user')
-    if (!userData) {
-      return false
-    }
-    const { data } = JSON.parse(userData);
+    console.log(URL)
     setLoading(true);
     let info = {
       url: URL,
@@ -58,7 +61,7 @@ export default function Projects() {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${data.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify(info)
     };
@@ -69,8 +72,6 @@ export default function Projects() {
       setOpen(false)
       if (data.status === 200 || data.error === "Data Already Inserted!") {
         alert('Invited successful');
-      } else {
-        alert('Something went wrong');
       }
     } catch (error) {
       console.log(error);
@@ -94,6 +95,7 @@ export default function Projects() {
                 projectTypeKey={items.projectTypeKey}
                 projectKey={items.key}
                 projectID={items.id}
+                isAdmin={user.isadmin}
                 projectLead={items.lead.displayName}
                 onClickInviteClient={() => handleOpen(items.id)}
                 redirectToIssues={`/dashboard/issues/${items.id}`}
@@ -115,7 +117,7 @@ export default function Projects() {
           onChange={(e) => setEmail(e.target.value)}
           sx={{ marginTop: 2, marginBottom: 2 }}
         />
-        <LoadingButton onClick={sendInvite} fullWidth size="large" type="submit" variant="contained">
+        <LoadingButton onClick={sendInvite} loading={loading} fullWidth size="large" type="submit" variant="contained">
           Send Invitation
         </LoadingButton>
       </BasicModal>

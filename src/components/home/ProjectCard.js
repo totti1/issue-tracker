@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { 
-  Card, 
-  CardHeader, 
-  CardContent, 
-  CardActions, 
-  Typography, 
-  Button, 
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
   IconButton,
   Menu,
   MenuItem
@@ -30,7 +30,7 @@ export default function ProjectCard(props) {
         subheader={props.projectTypeKey}
         action={
           <div>
-            <IconButton 
+            <IconButton
               aria-label="settings"
               id="basic-button"
               aria-controls={open ? 'basic-menu' : undefined}
@@ -41,22 +41,23 @@ export default function ProjectCard(props) {
               <MoreVertIcon />
             </IconButton>
             <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
-            <MenuItem onClick={props.onClickInviteClient}>
-              Invite Client
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              {props.isAdmin && <MenuItem onClick={props.onClickInviteClient}>
+                Invite Client
             </MenuItem>
-            <MenuItem onClick={handleClose} to={props.redirectToNewIssue} component={RouterLink}>
-              Report Issue
+              } 
+              <MenuItem onClick={handleClose} to={props.redirectToNewIssue} component={RouterLink}>
+                Report Issue
             </MenuItem>
-          </Menu>
-        </div>
+            </Menu>
+          </div>
         }
       />
       <CardContent>
