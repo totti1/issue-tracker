@@ -51,23 +51,27 @@ export default function LoginForm() {
         password: e.password
       };
       setLoading(true);
-      axios
-        .post(`${API}/auth/signin/`, info)
-        .then((response) => {
-          const data = response;
-          if (data.status === 200) {
-            localStorage.setItem('user', JSON.stringify(data.data));
-            localStorage.setItem('loggedin', true);
-            navigate('/dashboard', { replace: true });
-          } else {
-            alert('Oops!');
-          }
+      try {
+        axios
+          .post(`${API}/auth/signin/`, info)
+          .then((response) => {
+            const data = response;
+            if (data.status === 200) {
+              localStorage.setItem('user', JSON.stringify(data.data));
+              localStorage.setItem('loggedin', true);
+              navigate('/dashboard', { replace: true });
+            } else {
+              alert('Please verify your email or password!');
+            }
 
-        })
-        .catch((error) => {
-          setLoading(false);
-          alert('Email or Password mismatch');
-        });
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error.message)
+          });
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   });
   const { errors, touched, values, handleSubmit, getFieldProps } = formik;
