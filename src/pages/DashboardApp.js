@@ -30,26 +30,17 @@ export default function DashboardApp() {
         navigate('/login', { replace: true });
       }
       const { data } = JSON.parse(userData);
-      console.log(data)
-      if (data) {
-        getAlldata(data)
-        console.log(user)
-      }
-    } catch (error) {
-      console.log(error.message)
-    }
-  }, [0]);
-  const getAlldata = (data) => {
-    try {
-      setUser(data);
-      let myPro = data.projects.map(i => i.projectid);
-      setMyProjects(myPro);
+      let myPro = data.projects.map(i => i.projectid)
+      setMyProjects(myPro)
       getIssues(data.token);
       getProjects(data.token);
+      if (data) {
+        setUser(data);
+      }
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
     }
-  }
+  }, [projects]);
   const getIssues = async (Token) => {
 
     const requestOptions = {
@@ -76,7 +67,6 @@ export default function DashboardApp() {
     } catch (error) {
     }
   };
-
   const getProjects = async (Token) => {
     ref.current.continuousStart()
     const requestOptions = {
