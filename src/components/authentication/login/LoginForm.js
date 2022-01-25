@@ -35,7 +35,7 @@ export default function LoginForm() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    const check = localStorage.getItem('loggedin')
+    const check = localStorage.getItem('logged')
     if (check) {
       navigate('/dashboard/app', { replace: true });
     }
@@ -43,8 +43,7 @@ export default function LoginForm() {
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: '',
-      remember: true
+      passcode: ''
     },
     onSubmit: async (e) => {
       setError('')
@@ -55,8 +54,8 @@ export default function LoginForm() {
       if (showcode) {
         if (code == e.passcode) {
           localStorage.setItem('user', JSON.stringify(user));
-          localStorage.setItem('loggedin', true);
-          navigate('/dashboard', { replace: true });
+          localStorage.setItem('logged', true);
+          navigate('/dashboard/app', { replace: true });
         } else {
           setLoading(false)
           setError('Passcode mismatched')
@@ -80,7 +79,7 @@ export default function LoginForm() {
             })
             .catch((error) => {
               setLoading(false);
-              setError('Oops refresh and type again!')
+              setError('Oops refresh and enter again!')
             });
         } catch (error) {
           console.log(error.message);

@@ -42,8 +42,6 @@ export default function RegisterForm({ email, token }) {
         organisation: e.organisation,
         representative: e.representative,
       };
-
-      console.log(info)
       setLoading(true);
       try {
         axios
@@ -52,11 +50,9 @@ export default function RegisterForm({ email, token }) {
             const data = response;
             if (data.status === 201) {
               localStorage.setItem('user', JSON.stringify(data.data));
-              localStorage.setItem('loggedin', true);
+              localStorage.setItem('logged', true);
               navigate('/dashboard/app', { replace: true });
-            } else {
-              setLoading(false);
-            }
+            } 
           })
           .catch((error) => {
             setLoading(false);

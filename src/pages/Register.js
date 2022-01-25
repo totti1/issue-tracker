@@ -75,7 +75,7 @@ export default function Register() {
         setLoading(false);
       } else if (data.status === 200) {
         localStorage.setItem('user', JSON.stringify(data));
-        localStorage.setItem('loggedin', true);
+        localStorage.setItem('logged', true);
         navigate('/dashboard/app', { replace: true });
       }
     } catch (error) {
