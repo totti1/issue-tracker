@@ -38,7 +38,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   return (
-    <RootStyle title="Login | Minimal-UI">
+    <RootStyle title="Login | Issuer Tracker">
       <AuthLayout />
       <MHidden width="mdDown">
         <SectionStyle>
@@ -51,14 +51,6 @@ export default function Login() {
 
       <Container maxWidth="sm">
         <ContentStyle>
-          <Stack sx={{ mb: 5 }}>
-            <Typography variant="h4" gutterBottom>
-              Sign in to Issue tracker
-            </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
-          </Stack>
-          {/* <AuthSocial /> */}
-
           <LoginForm />
 
           <MHidden width="smUp">

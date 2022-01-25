@@ -25,30 +25,28 @@ export default function RegisterForm({ email, token }) {
       .max(50, 'Too Long!')
       .required('First name required'),
     lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
-    phone: Yup.string().min(10, 'Too Short!').max(15, 'Too Long!').required('Phone number is required'),
-    password: Yup.string().required('Password is required'),
-    address: Yup.string().required('Address is required'),
-
+    organisation: Yup.string(),
+    representative: Yup.string(),
   });
 
   const formik = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
-      phone: '',
       email,
-      address: '',
-      password: ''
+      organisation: '',
+      representative: ''
     },
     validationSchema: RegisterSchema,
     onSubmit: async (e) => {
       const info = {
         first_name: e.firstName,
         last_name: e.lastName,
-        phoneNumber: e.phone,
-        address: e.address,
-        password: e.password
+        organisation: e.organisation,
+        representative: e.representative,
       };
+
+      console.log(info)
       setLoading(true);
       try {
         axios
@@ -113,39 +111,19 @@ export default function RegisterForm({ email, token }) {
           />
           <TextField
             fullWidth
-            label="Phone"
+            label="Organisation Name(optional)"
             type="text"
-            {...getFieldProps('phone')}
-            error={Boolean(touched.phone && errors.phone)}
-            helperText={touched.phone && errors.phone}
-          />
-
-          <TextField
-            fullWidth
-            autoComplete="current-password"
-            type={showPassword ? 'text' : 'password'}
-            label="Password"
-            {...getFieldProps('password')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)}>
-                    <Icon icon={showPassword ? eyeFill : eyeOffFill} />
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-            error={Boolean(touched.password && errors.password)}
-            helperText={touched.password && errors.password}
+            {...getFieldProps('organisation')}
+            error={Boolean(touched.organisation && errors.organisation)}
+            helperText={touched.organisation && errors.organisation}
           />
           <TextField
             fullWidth
-            label="Address"
+            label="Representative fullname(optional)"
             type="text"
-            {...getFieldProps('address')}
-            error={Boolean(touched.address && errors.address)}
-            helperText={touched.address && errors.address}
-            defaultValue="Kigali, Rwanda"
+            {...getFieldProps('representative')}
+            error={Boolean(touched.representative && errors.representative)}
+            helperText={touched.representative && errors.representative}
           />
 
           <LoadingButton
