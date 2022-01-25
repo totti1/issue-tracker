@@ -92,6 +92,13 @@ export default function IssueForm() {
             error={Boolean(touched.description && errors.description)}
             helperText={touched.description && errors.description}
           />
+          <TextField
+            fullWidth
+            type="file"
+            {...getFieldProps('screenshot')}
+            error={Boolean(touched.screenshot && errors.screenshot)}
+            helperText={touched.screenshot && errors.screenshot}
+          />
           <LoadingButton
             fullWidth
             size="large"

@@ -72,7 +72,7 @@ export default function AppNewsUpdate({ projects }) {
           component={RouterLink}
           endIcon={<Icon icon={arrowIosForwardFill} />}
         >
-          My Issues
+          View all
         </Button>
       </Box>
     </Card>

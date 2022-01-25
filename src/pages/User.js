@@ -1,9 +1,10 @@
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import LoadingBar from 'react-top-loading-bar'
 import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // material
 import {
   Card,
@@ -28,13 +29,19 @@ import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
 //
 import USERLIST from '../_mocks_/user';
-
+// ----------------------------------------------------------------------
+const API =
+  process.env.NODE_ENV !== 'production'
+    ? process.env.REACT_APP_API_DEV
+    : process.env.REACT_APP_API_URL;
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
+  { id: 'check', label: '', alignRight: false },
+  { id: 'first_name', label: 'First Name', alignRight: false },
+  { id: 'last_name', label: 'Last Name', alignRight: false },
+  { id: 'email', label: 'Email', alignRight: false },
+  { id: 'Phone', label: 'Phone', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' }
@@ -72,13 +79,56 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function User() {
+  const ref = useRef(null)
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [user, setUser] = useState({})
+  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState([])
+  useEffect(() => {
+    try {
+      const userData = localStorage.getItem('user')
+      if (!userData) {
+        navigate('/dashboard/app', { replace: true });
+      }
+      const { data } = JSON.parse(userData);
+      if (data) {
+        setUser(data);
+        getAllUsers(data.token)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }, [0])
 
+ const getAllUsers = async (Token) => {
+    ref.current.continuousStart()
+    const requestOptions = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
+      }
+    };
+    try {
+      const response = await fetch(`${API}/auth/users`, requestOptions);
+      const { data } = await response.json();
+      if (data) {
+        setUsers(users)
+        localStorage.setItem('users', JSON.stringify(data))
+      }
+      setLoading(false);
+      ref.current.complete()
+    } catch (error) {
+
+    }
+  }
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -132,7 +182,8 @@ export default function User() {
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
-    <Page title="User | Minimal-UI">
+    <Page title="Users | Admin">
+      <LoadingBar color='#2ecc71' ref={ref} height={4} />
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>

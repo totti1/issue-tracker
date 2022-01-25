@@ -5,37 +5,52 @@ import { Box, Grid, Container, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
 import {
+  // AppTasks,
+  AppNewUsers,
+  AppBugReports,
+  AppItemOrders,
   AppNewsUpdate,
+  AppWeeklySales,
+  // AppOrderTimeline,
+  // AppCurrentVisits,
+  // AppWebsiteVisits,
+  // AppTrafficBySite,
+  // AppCurrentSubject,
   AppConversionRates
 } from '../components/_dashboard/app';
-
+import { useNavigate } from 'react-router-dom';
 // ----------------------------------------------------------------------
 const API =
   process.env.NODE_ENV !== 'production'
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
 export default function DashboardApp() {
+  const navigate = useNavigate();
   const ref = useRef(null)
   const [projects, setProjects] = useState([]);
   const [iloading, setILoading] = useState(true);
+  const [uloading, setULoading] = useState(true);
   const [ploading, setPLoading] = useState(true);
   const [user, setUser] = useState({});
   const [issues, setIssues] = useState([]);
-  const [myProjects, setMyProjects] = useState([])
+  const [myProjects, setMyProjects] = useState([]);
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     try {
       const userData = localStorage.getItem('user')
       if (!userData) {
-        return false
+        navigate('/login', { replace: true });
       }
       const { data } = JSON.parse(userData);
       let myPro = data.projects.map(i => i.projectid)
       setMyProjects(myPro)
       getIssues(data.token);
       getProjects(data.token);
+      data.isadmin && getAllUsers(data.token);
       if (data) {
         setUser(data);
       }
+      ref.current.complete()
     } catch (error) {
       console.log(error)
     }
@@ -88,22 +103,53 @@ export default function DashboardApp() {
         localStorage.setItem('projects', JSON.stringify(data))
       }
       setPLoading(false);
-
-      ref.current.complete()
     } catch (error) {
 
     }
   };
+  const getAllUsers = async (Token) => {
+    const requestOptions = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
+      }
+    };
+    try {
+      const response = await fetch(`${API}/auth/users`, requestOptions);
+      const { data } = await response.json();
+      if (data) {
+        setUsers(data)
+        localStorage.setItem('users', JSON.stringify(data))
+      }
+      setULoading(false);
+    } catch (error) {
 
+    }
+  }
   return (
-    <Page title="Dashboard | Minimal-UI">
-      <LoadingBar color='#2ecc71' ref={ref} height={4}/>
+    <Page title={`Dashboard | ${user.first_name} ${user.last_name}`}>
+      <LoadingBar color='#2ecc71' ref={ref} height={4} />
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
           <Typography variant="h4"> Welcome back, {user.first_name || 'again'}!</Typography>
         </Box>
         <Grid container spacing={3}>
 
+          {user.isadmin && <><Grid item xs={12} sm={6} md={3}>
+            <AppWeeklySales issues={issues} />
+          </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <AppNewUsers issues={issues} />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <AppItemOrders projects={projects} />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <AppBugReports clients={users} />
+            </Grid>
+          </>}
           <Grid item xs={12} md={6} lg={12}>
             {!ploading && <AppConversionRates projects={projects} />}
           </Grid>

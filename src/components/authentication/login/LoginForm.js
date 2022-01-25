@@ -14,7 +14,8 @@ import {
   TextField,
   IconButton,
   InputAdornment,
-  FormControlLabel
+  FormControlLabel,
+  Typography
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
@@ -26,16 +27,17 @@ const API =
 export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [showcode, setShowcode] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [code, setCode] = useState(null);
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('')
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
-  });
   useEffect(() => {
     const check = localStorage.getItem('loggedin')
     if (check) {
-      navigate('/dashboard', { replace: true });
+      navigate('/dashboard/app', { replace: true });
     }
   }, [])
   const formik = useFormik({
@@ -44,34 +46,47 @@ export default function LoginForm() {
       password: '',
       remember: true
     },
-    validationSchema: LoginSchema,
     onSubmit: async (e) => {
+      setError('')
       const info = {
-        email: e.email,
-        password: e.password
+        email: e.email
       };
       setLoading(true);
-      try {
-        axios
-          .post(`${API}/auth/signin/`, info)
-          .then((response) => {
-            const data = response;
-            if (data.status === 200) {
-              localStorage.setItem('user', JSON.stringify(data.data));
-              localStorage.setItem('loggedin', true);
-              navigate('/dashboard', { replace: true });
-            } else {
-              alert('Please verify your email or password!');
-            }
-
-          })
-          .catch((error) => {
-            setLoading(false);
-            console.log(error.message)
-          });
-      } catch (error) {
-        console.log(error.message);
+      if (showcode) {
+        if (code == e.passcode) {
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('loggedin', true);
+          navigate('/dashboard', { replace: true });
+        } else {
+          setLoading(false)
+          setError('Passcode mismatched')
+        }
+      } else {
+        try {
+          axios
+            .post(`${API}/auth/signin/`, info)
+            .then((response) => {
+              const data = response;
+              if (data.status === 200) {
+                const { passcode } = data.data.data
+                setCode(passcode)
+                setUser(data.data)
+                setShowcode(true)
+                setMessage('Please check your email and enter passcode below!')
+              } else {
+                setError(data.error)
+              }
+              setLoading(false)
+            })
+            .catch((error) => {
+              setLoading(false);
+              setError('Oops refresh and type again!')
+            });
+        } catch (error) {
+          console.log(error.message);
+        }
       }
+
     }
   });
   const { errors, touched, values, handleSubmit, getFieldProps } = formik;
@@ -82,8 +97,15 @@ export default function LoginForm() {
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+        <Stack sx={{ mb: 5 }}>
+          <Typography variant="h4" gutterBottom>
+            Sign in to Issue tracker
+            </Typography>
+          {!error ? <Typography sx={{ color: 'text.secondary' }}>{message || "Enter your Email below."}</Typography> :
+            <Typography sx={{ color: 'red' }}>{error}</Typography>}
+        </Stack>
         <Stack spacing={3}>
-          <TextField
+          {!showcode && <TextField
             fullWidth
             autoComplete="email"
             type="email"
@@ -91,14 +113,14 @@ export default function LoginForm() {
             {...getFieldProps('email')}
             error={Boolean(touched.email && errors.email)}
             helperText={touched.email && errors.email}
-          />
+          />}
 
-          <TextField
+          {showcode && <TextField
             fullWidth
             autoComplete="current-password"
             type={showPassword ? 'text' : 'password'}
-            label="Password"
-            {...getFieldProps('password')}
+            label="PASS CODE"
+            {...getFieldProps('passcode')}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -110,29 +132,22 @@ export default function LoginForm() {
             }}
             error={Boolean(touched.password && errors.password)}
             helperText={touched.password && errors.password}
-          />
+          />}
         </Stack>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-          <FormControlLabel
-            control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
-            label="Remember me"
-          />
 
-          <Link component={RouterLink} variant="subtitle2" to="#">
-            Forgot password?
-          </Link>
+          <LoadingButton
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            loading={loading}
+          >
+            Continue
+        </LoadingButton>
         </Stack>
 
-        <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          loading={loading}
-        >
-          Login
-        </LoadingButton>
       </Form>
     </FormikProvider>
   );

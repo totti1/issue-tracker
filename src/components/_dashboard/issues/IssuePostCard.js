@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 // utils
-import { fDate } from '../../../utils/formatTime';
+import { fToNow } from '../../../utils/formatTime';
 
 const TitleStyle = styled(Link)({
   height: 44,
@@ -30,7 +30,7 @@ const API =
     ? process.env.REACT_APP_API_DEV
     : process.env.REACT_APP_API_URL;
 export default function IssuePostCard({ issue, index }) {
-  const { projectid, title, description } = issue;
+  const { projectid, title, description, idate, first_name, last_name } = issue;
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState(null)
   const latestIssueLarge = 0;
@@ -89,14 +89,7 @@ export default function IssuePostCard({ issue, index }) {
           })
         }}
       >
-        <Typography
-          gutterBottom
-          variant="caption"
-          sx={{ color: 'text.disabled', display: 'block' }}
-        >
-          {fDate(new Date())}
-        </Typography>
-
+        
         <TitleStyle
           to="#"
           color="inherit"
@@ -112,9 +105,18 @@ export default function IssuePostCard({ issue, index }) {
         >
           {title}
         </TitleStyle>
+        
         <Typography variant="body2" color="text.secondary">
           {description}
         </Typography>
+        <Typography
+          gutterBottom
+          variant="caption"
+          sx={{ color: 'text.disabled', display: 'block' }}
+        >
+          {fToNow(idate)} | {first_name} {last_name}
+        </Typography>
+
         {user && user.isadmin &&
           <CardActions>
             <Button size="small" onClick={sendToJira}>{loading ? "Loading..." : "send to Jira"}</Button>

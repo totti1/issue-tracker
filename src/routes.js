@@ -22,7 +22,7 @@ const Router = () => {
   useEffect(() => {
     const checked = localStorage.getItem('loggedin');
     setLogged(checked);
-  }, []);
+  }, [0]);
   return useRoutes([
     {
       path: '/dashboard',
