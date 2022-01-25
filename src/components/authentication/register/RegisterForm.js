@@ -1,13 +1,10 @@
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useState } from 'react';
-import { Icon } from '@iconify/react';
 import { useFormik, Form, FormikProvider } from 'formik';
-import eyeFill from '@iconify/icons-eva/eye-fill';
-import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { useNavigate } from 'react-router-dom';
 // material
-import { Stack, TextField, IconButton, InputAdornment } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 // ----------------------------------------------------------------------
@@ -59,12 +56,10 @@ export default function RegisterForm({ email, token }) {
               navigate('/dashboard/app', { replace: true });
             } else {
               setLoading(false);
-              alert('Something went wrong. Reflesh');
             }
           })
           .catch((error) => {
             setLoading(false);
-            console.log(error.message);
           });
       } catch (error) {
         console.log(error.message);

@@ -46,10 +46,11 @@ export default function DashboardApp() {
       setMyProjects(myPro)
       getIssues(data.token);
       getProjects(data.token);
-      getAllUsers(data.token);
+      data.isadmin && getAllUsers(data.token);
       if (data) {
         setUser(data);
       }
+      ref.current.complete()
     } catch (error) {
       console.log(error)
     }
@@ -102,8 +103,6 @@ export default function DashboardApp() {
         localStorage.setItem('projects', JSON.stringify(data))
       }
       setPLoading(false);
-
-      ref.current.complete()
     } catch (error) {
 
     }
@@ -125,7 +124,6 @@ export default function DashboardApp() {
         localStorage.setItem('users', JSON.stringify(data))
       }
       setULoading(false);
-      ref.current.complete()
     } catch (error) {
 
     }

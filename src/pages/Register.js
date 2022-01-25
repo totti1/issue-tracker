@@ -49,16 +49,13 @@ export default function Register() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      if (id) {
-        checkUser()
-      }
-    }, 1000)
-
-  }, [])
+    if (id) {
+      checkUser()
+    }
+  }, [id])
 
   const checkUser = async () => {
+    setLoading(true);
     localStorage.clear()
     ref.current.continuousStart()
     const requestOptions = {
@@ -75,19 +72,18 @@ export default function Register() {
       if (data.status === 202) {
         ref.current.complete()
         setData(data);
-        setLoading(false)
+        setLoading(false);
       } else if (data.status === 200) {
         localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('loggedin', true);
-        navigate('/dashboard', { replace: true });
-      } else {
+        navigate('/dashboard/app', { replace: true });
       }
     } catch (error) {
       console.log(error);
     }
   }
   return (
-    <RootStyle title="Register | Minimal-UI">
+    <RootStyle title="Register | Issue tracker">
       <LoadingBar color='#2ecc71' ref={ref} height={4} />
       <MHidden width="mdDown">
         <SectionStyle>

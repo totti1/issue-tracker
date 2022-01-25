@@ -37,7 +37,7 @@ export default function LoginForm() {
   useEffect(() => {
     const check = localStorage.getItem('loggedin')
     if (check) {
-      navigate('/dashboard', { replace: true });
+      navigate('/dashboard/app', { replace: true });
     }
   }, [])
   const formik = useFormik({
