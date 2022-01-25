@@ -80,7 +80,7 @@ export default function LoginForm() {
             })
             .catch((error) => {
               setLoading(false);
-              setError('User not found')
+              setError('Oops refresh and type again!')
             });
         } catch (error) {
           console.log(error.message);
