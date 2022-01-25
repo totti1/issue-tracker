@@ -20,7 +20,7 @@ import ProfilPage from './pages/profilPage';
 const Router = () => {
   const [logged, setLogged] = useState(false);
   useEffect(() => {
-    const checked = localStorage.getItem('loggedin');
+    const checked = localStorage.getItem('logged');
     setLogged(checked);
   }, [0]);
   return useRoutes([
