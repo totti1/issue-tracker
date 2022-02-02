@@ -27,10 +27,10 @@ export default function ProfilPage() {
     <div>
       <Grid container spacing={3} sx={{ pb: 5 }}>
         <Grid item xs={12} sx={{ marginBottom: 1 }}>
-          <Typography variant="h4">My Issues</Typography>
+          <Typography variant="h4">Recent Issues</Typography>
         </Grid>
         <Grid item xs={8} sx={{ marginBottom: 20 }}>
-          {issues && issues.map((post, index) => (
+          {issues && issues.reverse().map((post, index) => (
             <IssuePostCard key={post.id} issue={post} post={post} index={index} />
           ))}
         </Grid>

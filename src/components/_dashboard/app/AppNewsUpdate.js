@@ -56,7 +56,7 @@ export default function AppNewsUpdate({ projects }) {
 
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
-          {projects.reverse().map((pro) => (
+          {projects.map((pro) => (
             <NewsItem key={pro.title} project={pro} />
           ))}
         </Stack>
@@ -66,7 +66,7 @@ export default function AppNewsUpdate({ projects }) {
 
       <Box sx={{ p: 2, textAlign: 'right' }}>
         <Button
-          to="/dashboard/profile/"
+          to="/dashboard/issues/"
           size="small"
           color="inherit"
           component={RouterLink}

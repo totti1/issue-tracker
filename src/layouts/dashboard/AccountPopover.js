@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { useRef, useEffect, useState } from 'react';
 import homeFill from '@iconify/icons-eva/home-fill';
-import personFill from '@iconify/icons-eva/person-fill';
+import bugFill from '@iconify/icons-bi/bug-fill';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // material
 import { alpha } from '@mui/material/styles';
@@ -20,9 +20,9 @@ const MENU_OPTIONS = [
     linkTo: '/'
   },
   {
-    label: 'Profile',
-    icon: personFill,
-    linkTo: '/dashboard/profile/'
+    label: 'Issues',
+    icon: bugFill,
+    linkTo: '/dashboard/issues/'
   }
 ];
 
