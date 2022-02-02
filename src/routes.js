@@ -39,7 +39,7 @@ const Router = () => {
         { path: 'user', element: <User /> },
         { path: 'projects', element: <Projects /> },
         { path: 'issues/:id', element: <Issues /> },
-        { path: 'profile', element: <ProfilPage /> },
+        { path: 'issues', element: <ProfilPage /> },
         { path: 'new/issue/:projectID', element: <NewIssue /> }
       ]
     },
